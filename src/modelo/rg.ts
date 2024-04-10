@@ -8,7 +8,7 @@ export default class RG {
     public get getValor(): string {
         return this.valor
     }
-    public get getDataEmissao(): Date {
-        return this.dataEmissao
+    public get getDataEmissao(): string {
+        return this.dataEmissao.toDateString()
     }
 }

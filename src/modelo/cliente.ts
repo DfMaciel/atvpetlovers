@@ -29,14 +29,26 @@ export default class Cliente {
     public get getCpf(): CPF {
         return this.cpf
     }
-    public get getRgs(): Array<RG> {
-        return this.rgs
+    public getRgs(): void {
+        this.rgs.forEach(rg => {
+            console.log('Lista de RGs:');
+            console.log(`${rg.getValor} - Data de emissão: ${rg.getDataEmissao}`)
+    })
+    }
+    public addRgs(RG: RG): void{
+        this.rgs.push(RG)
     }
     public get getDataCadastro(): Date {
         return this.dataCadastro
     }
-    public get getTelefones(): Array<Telefone> {
-        return this.telefones
+    public getTelefones(): void {
+        this.telefones.forEach(Telefone => {
+            console.log('Lista de telefones:')
+            console.log(`${Telefone.getDdd}` + `${Telefone.getNumero}`)
+    })
+    }
+    public addTelefones(telefone: Telefone): void{
+        this.telefones.push(telefone)
     }
     public get getProdutosConsumidos(): Array<Produto> {
         return this.produtosConsumidos
