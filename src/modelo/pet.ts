@@ -16,19 +16,19 @@ export default class Pet {
     }
 
     public get getNome(){return this.nome}
-    public setNome(novoNome) {
+    public setNome(novoNome:string) {
         this.nome = novoNome
     }
     public get getRaca(){return this.raca}
-    public setRaca(novaRaca) {
+    public setRaca(novaRaca:string) {
         this.raca = novaRaca
     }
     public get getGenero(){return this.genero}
-    public setGenero(novoGenero) {
+    public setGenero(novoGenero:string) {
         this.genero = novoGenero
     }
     public get getTipo(){return this.tipo}
-    public setTipo(novoTipo) {
+    public setTipo(novoTipo:string) {
         this.tipo = novoTipo
     }
     public get getDono(){return this.dono}

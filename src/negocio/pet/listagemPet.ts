@@ -15,7 +15,6 @@ export default class ListagemClientes extends Listagem {
             console.log(`CPF: ` + cliente.getCpf.getValor + ` Data de emissão: ` + cliente.getCpf.getDataEmissao);
             cliente.getRgs();
             cliente.getTelefones();
-            cliente.getPets;
             console.log(`--------------------------------------`);
         });
         console.log(`\n`);

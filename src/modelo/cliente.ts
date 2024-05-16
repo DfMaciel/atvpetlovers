@@ -59,7 +59,6 @@ export default class Cliente {
     public get getPets(): Array<Pet>{
         return this.pets
     }
-
     public addPet(pet: Pet) {
         this.pets.push(pet)
         pet.setDono(this)
