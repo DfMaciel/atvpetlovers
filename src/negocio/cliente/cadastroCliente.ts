@@ -44,6 +44,6 @@ export default class CadastroCliente extends Cadastro {
         let mes = parseInt(partesData[1])
         let dia = parseInt(partesData[0])
         
-        return new Date(ano, mes, dia)
+        return new Date(ano, mes-1, dia)
     }
 }

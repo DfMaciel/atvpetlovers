@@ -45,5 +45,6 @@ export default class CadastroPet extends Cadastro {
             }
         }
         this.pets.push(pet)
+        console.log('\n Cadastro de pet concluído')
     }
 }

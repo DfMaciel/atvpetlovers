@@ -93,24 +93,58 @@ while (execucao) {
             switch(escolhaEdicao) {
                 case 1:
                     let edicaoClientes = new EdicaoClientes(empresa.getClientes)
-                    edicaoClientes.listar()
+                    edicaoClientes.editar()
                     break;
                 case 2:
                     let edicaoPet = new EdicaoPet(empresa.getPets, empresa.getClientes)
-                    edicaoPet.listar()
+                    edicaoPet.editar()
                     break;
                 case 3:
                     let edicaoProdutos = new EdicaoProduto(empresa.getProdutos)
-                    edicaoProdutos.listar()
+                    edicaoProdutos.editar()
                     break;
                 case 4:
                     let edicaoServicos = new EdicaoServicos(empresa.getServicos)
-                    edicaoServicos.listar()
+                    edicaoServicos.editar()
                     break;
                 case 0:
                     break;
                 default:
                     console.log('Número inválido')
             }
+        case 4:
+            console.log('\n')
+            console.log('--- Edição ---')
+            console.log(`1 - Edição de clientes`)
+            console.log(`2 - Edição de pets`)
+            console.log(`3 - Edição de produtos`)
+            console.log(`4 - Edição do serviços`)
+            console.log(`0 - Voltar`)
+            let escolhaExclusao = entrada.receberNumero(`Por favor, escolha uma opção de exclusão: `)
+            switch(escolhaExclusao) {
+                case 1:
+                    let exclusaoClientes = new ExclusaoClientes(empresa.getClientes)
+                    exclusaoClientes.excluir()
+                    break;
+                case 2:
+                    let exclusaoPet = new ExclusaoPet(empresa.getPets, empresa.getClientes)
+                    exclusaoPet.excluir()
+                    break;
+                case 3:
+                    let exclusaoProdutos = new ExclusaoProduto(empresa.getProdutos)
+                    exclusaoProdutos.excluir()
+                    break;
+                case 4:
+                    let exclusaoServicos = new ExclusaoServicos(empresa.getServicos)
+                    exclusaoServicos.excluir()
+                    break;
+                case 0:
+                    break;
+                default:
+                    console.log('Número inválido')
+            }
+        case 0: 
+            console.log('\n')
+            console.log('Até mais')
     }
 }
