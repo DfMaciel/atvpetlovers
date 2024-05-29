@@ -1,11 +1,14 @@
+import Entrada from "../../io/entrada";
 import Cliente from "../../modelo/cliente";
 import Listagem from "../listagem";
 
 export default class ListagemClientes extends Listagem {
     private clientes: Array<Cliente>
+    private entrada: Entrada
     constructor(clientes: Array<Cliente>) {
         super()
         this.clientes = clientes
+        this.entrada = new Entrada()
     }
     public listar(): void {
         console.log(`\nLista de todos os clientes:`);
@@ -19,5 +22,6 @@ export default class ListagemClientes extends Listagem {
             console.log(`--------------------------------------`);
         });
         console.log(`\n`);
+        let entrada = this.entrada.receberTexto(``);
     }
 }
