@@ -16,9 +16,10 @@ export default class CadastroPet extends Cadastro {
     public cadastrar(): void {
         console.log('\nInício do cadastro do pet')
         let nome = this.entrada.receberTexto('Por favor informe o nome do pet: ')
+        let tipo = this.entrada.receberTexto('Por favor informe qual o tipo do pet: ')  
         let raca = this.entrada.receberTexto('Por favor informe a raça do pet: ')
         let generoinit = this.entrada.receberTexto('Por favor informe o genero do pet, no padrão M/F: ')
-        let tipo = this.entrada.receberTexto('Por favor informe qual o tipo do pet: ')  
+        
         let genero = ''
         switch (generoinit.toLocaleLowerCase()){
             case('m'):
@@ -28,7 +29,7 @@ export default class CadastroPet extends Cadastro {
                 genero = 'Femea'
                 break;
         }
-        let pet = new Pet(nome, raca, genero, tipo)
+        let pet = new Pet(nome, tipo, genero, raca)
 
         let adicionando = true
         while (adicionando) {

@@ -13,15 +13,17 @@ export default class ListagemPets extends Listagem {
     }
     public listar(): void {
         console.log(`\nLista de todos os pets: `);
+        if (this.pets.length === 0) {
+            console.log('Não há pets cadastrados')
+        }
         this.pets.forEach(pet => {
             console.log(`Nome: ` + pet.getNome);
+            console.log(`Tipo: ` + pet.getTipo);
             console.log(`Raça: ` + pet.getRaca);
             console.log(`Genero: ` + pet.getGenero);
-            console.log(`Tipo: ` + pet.getTipo);
             console.log(`Dono: ` + pet.getDono)
             console.log(`--------------------------------------`);
         });
-        console.log(`\n`);
-        let entrada = this.entrada.receberTexto(``);
+        let entrada = this.entrada.receberTexto(`Aperte enter para continuar`);
     }
 }

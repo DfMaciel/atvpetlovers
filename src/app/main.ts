@@ -6,6 +6,12 @@ import ListagemClientes from "../negocio/cliente/listagemClientes";
 import CadastroPet from "../negocio/pet/cadastroPet";
 import EdicaoPet from "../negocio/pet/edicaoPet";
 import ListagemPets from "../negocio/pet/listagemPet";
+import CadastroProduto from "../negocio/produto/cadastroProduto";
+import CadastroServico from "../negocio/servico/cadastroServico";
+import ListagemProduto from "../negocio/produto/listagemProduto";
+import ListagemServicos from "../negocio/servico/listagemServico";
+import EdicaoProduto from "../negocio/produto/edicaoProduto";
+import EdicaoServico from "../negocio/servico/edicaoServico";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -42,14 +48,14 @@ while (execucao) {
                         let cadastroPet = new CadastroPet(empresa.getPets, empresa.getClientes)
                         cadastroPet.cadastrar()
                         break;
-                    // case 3:
-                    //     let cadastroProdutos = new CadastroProduto(empresa.getProdutos)
-                    //     cadastroProdutos.cadastrar()
-                    //     break;
-                    // case 4:
-                    //     let cadastroServicos = new CadastroServicos(empresa.getServicos)
-                    //     cadastroServicos.cadastrar()
-                    //     break;
+                    case 3:
+                        let cadastroProdutos = new CadastroProduto(empresa.getProdutos)
+                        cadastroProdutos.cadastrar()
+                        break;
+                    case 4:
+                        let cadastroServicos = new CadastroServico(empresa.getServicos)
+                        cadastroServicos.cadastrar()
+                        break;
                     case 0:
                         cadastroExecucao = false
                         break;
@@ -79,14 +85,14 @@ while (execucao) {
                         let listagemPet = new ListagemPets(empresa.getPets)
                         listagemPet.listar()
                         break;
-                    // case 3:
-                    //     let listagemProdutos = new ListagemProduto(empresa.getProdutos)
-                    //     listagemProdutos.listar()
-                    //     break;
-                    // case 4:
-                    //     let listagemServicos = new ListagemServicos(empresa.getServicos)
-                    //     listagemServicos.listar()
-                    //     break;
+                    case 3:
+                        let listagemProdutos = new ListagemProduto(empresa.getProdutos)
+                        listagemProdutos.listar()
+                        break;
+                    case 4:
+                        let listagemServicos = new ListagemServicos(empresa.getServicos)
+                        listagemServicos.listar()
+                        break;
                     case 0:
                         listagemExecucao = false
                         break; 
@@ -116,14 +122,14 @@ while (execucao) {
                         let edicaoPet = new EdicaoPet(empresa.getPets)
                         edicaoPet.editar()
                         break;
-                    // case 3:
-                    //     let edicaoProdutos = new EdicaoProduto(empresa.getProdutos)
-                    //     edicaoProdutos.editar()
-                    //     break;
-                    // case 4:
-                    //     let edicaoServicos = new EdicaoServicos(empresa.getServicos)
-                    //     edicaoServicos.editar()
-                    //     break;
+                    case 3:
+                        let edicaoProdutos = new EdicaoProduto(empresa.getProdutos)
+                        edicaoProdutos.editar()
+                        break;
+                    case 4:
+                        let edicaoServicos = new EdicaoServico(empresa.getServicos)
+                        edicaoServicos.editar()
+                        break;
                     case 0:
                         edicaoExecucao = false
                         break;

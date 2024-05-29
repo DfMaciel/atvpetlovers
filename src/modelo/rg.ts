@@ -1,3 +1,5 @@
+import Formatacoes from "../negocio/formatacoes"
+
 export default class RG {
     private valor: string
     private dataEmissao: Date
@@ -9,6 +11,7 @@ export default class RG {
         return this.valor
     }
     public get getDataEmissao(): string {
-        return this.dataEmissao.toDateString()
-    }
+        let formatacao = new Formatacoes()
+        return formatacao.DataString(this.dataEmissao)
+    }   
 }

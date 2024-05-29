@@ -12,16 +12,25 @@ export default class ListagemClientes extends Listagem {
     }
     public listar(): void {
         console.log(`\nLista de todos os clientes:`);
+        if (this.clientes.length === 0) {
+            console.log('Não há clientes cadastrados')
+        }
         this.clientes.forEach(cliente => {
             console.log(`Nome: ` + cliente.nome);
             console.log(`Nome social: ` + cliente.nomeSocial);
             console.log(`CPF: ` + cliente.getCpf.getValor + ` Data de emissão: ` + cliente.getCpf.getDataEmissao);
             cliente.getRgs();
             cliente.getTelefones();
-            cliente.getPets;
+            let clientePets = cliente.getPets;
+            console.log('Pets:')
+            clientePets.forEach(pet => {
+                console.log(`Nome: ` + pet.getNome)
+                console.log(`Tipo: ` + pet.getTipo)
+                console.log(`Raça: ` + pet.getRaca)
+                console.log(`Genero: ` + pet.getGenero)     
             console.log(`--------------------------------------`);
         });
-        console.log(`\n`);
-        let entrada = this.entrada.receberTexto(``);
+        let entrada = this.entrada.receberTexto(`Aperte enter para continuar`);
+    });
     }
 }

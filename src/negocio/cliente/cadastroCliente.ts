@@ -31,6 +31,8 @@ export default class CadastroCliente extends Cadastro {
         let ddd = this.entrada.receberTexto('Por favor insira o DDD do seu número de telefone: ')
         let numero = this.entrada.receberTexto('Por favor insira o número de telefone: ')
         let telefone = new Telefone(ddd, numero)
+        // Adicionando a data de registro
+        let data = newDate()
         // Adicionando dados ao cliente
         let cliente = new Cliente(nome, nomeSocial, cpf);
         cliente.addRgs(rg)

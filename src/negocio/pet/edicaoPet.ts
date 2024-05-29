@@ -1,6 +1,8 @@
 import Entrada from "../../io/entrada";
 import Edicao from "../edicao";
 import Pet from "../../modelo/pet";
+import ListagemPets from "./listagemPet";
+import Listagem from "../listagem";
 
 export default class EdicaoPets extends Edicao {
     private pets: Array<Pet>
@@ -15,7 +17,8 @@ export default class EdicaoPets extends Edicao {
     public editar(): void {
         console.log('\nInício da edição de pet')
         let editar = true
-
+        let listagemPets = new ListagemPets(this.pets)
+        listagemPets.listar()
         while(editar) {
             let petNome = this.entrada.receberTexto('Por favor informe o nome do pet que deseja editar: ')
             let pet = this.pets.find(pet => pet.getNome === petNome)
