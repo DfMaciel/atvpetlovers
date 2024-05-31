@@ -35,6 +35,7 @@ export default class EdicaoProduto extends Edicao {
                         let novoNomeProduto = this.entrada.receberTexto('Digite o novo nome do produto: ')
                         if (novoNomeProduto === '') {
                             novoNomeProduto = produto.nome
+                            console.log('Nome inválido')
                         }
                         produto.nome = novoNomeProduto
                         break
@@ -42,6 +43,7 @@ export default class EdicaoProduto extends Edicao {
                         let novoPrecoProduto = this.entrada.receberNumero('Digite o novo preço do produto: R$')
                         if (novoPrecoProduto === 0) {
                             novoPrecoProduto = produto.preco
+                            console.log('Preço inválido')
                         }
                         produto.preco = novoPrecoProduto
                     case 0:
@@ -50,6 +52,7 @@ export default class EdicaoProduto extends Edicao {
                     default: 
                         console.log('Opção inválida')
                 }
+                console.log('Produto editado com sucesso.')
                 editar = false
                 break
             }

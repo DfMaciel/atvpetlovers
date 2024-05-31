@@ -31,7 +31,7 @@ export default class Pet {
     public setTipo(novoTipo:string) {
         this.tipo = novoTipo
     }
-    public get getDono(){return this.dono?.nome || 'Sem dono'}
+    public get getDono(){return this.dono}
     public setDono(novoDono: Cliente | null): void {
         this.dono = novoDono
     }

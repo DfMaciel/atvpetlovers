@@ -12,6 +12,10 @@ import ListagemProduto from "../negocio/produto/listagemProduto";
 import ListagemServicos from "../negocio/servico/listagemServico";
 import EdicaoProduto from "../negocio/produto/edicaoProduto";
 import EdicaoServico from "../negocio/servico/edicaoServico";
+import ExclusaoCliente from "../negocio/cliente/exclusaoCliente";
+import ExclusaoPets from "../negocio/pet/exclusaoPet";
+import ExclusaoProduto from "../negocio/produto/exclusaoProduto";
+import ExclusaoServico from "../negocio/servico/exclusaoServico";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -26,7 +30,7 @@ while (execucao) {
     console.log(`0 - Sair`);
 
     let entrada = new Entrada()
-    let opcao = entrada.receberNumero(`Por favor, escolha uma opção: `)
+    let opcao = entrada.receberNumero(`\nPor favor, escolha uma opção: `)
     switch (opcao) {
         case 1: 
             let cadastroExecucao = true
@@ -38,7 +42,7 @@ while (execucao) {
                 console.log(`3 - Cadastro de produtos`)
                 console.log(`4 - Cadastro do serviços`)
                 console.log(`0 - Voltar`)
-                let escolhaCadastro = entrada.receberNumero(`Por favor, escolha uma opção de cadastro: `)
+                let escolhaCadastro = entrada.receberNumero(`\nPor favor, escolha uma opção de cadastro: `)
                 switch(escolhaCadastro) {
                     case 1:
                         let cadastroCliente = new CadastroCliente(empresa.getClientes)
@@ -75,7 +79,7 @@ while (execucao) {
                 console.log(`3 - Listagem de produtos`)
                 console.log(`4 - Listagem do serviços`)
                 console.log(`0 - Voltar`)
-                let escolhaListagem = entrada.receberNumero(`Por favor, escolha uma opção de listagem: `)
+                let escolhaListagem = entrada.receberNumero(`\nPor favor, escolha uma opção de listagem: `)
                 switch(escolhaListagem) {
                     case 1:
                         let listagemClientes = new ListagemClientes(empresa.getClientes)
@@ -101,7 +105,7 @@ while (execucao) {
                 }
             }
             break;
-            
+
         case 3:
             let edicaoExecucao = true
             while (edicaoExecucao) {
@@ -112,7 +116,7 @@ while (execucao) {
                 console.log(`3 - Edição de produtos`)
                 console.log(`4 - Edição do serviços`)
                 console.log(`0 - Voltar`)
-                let escolhaEdicao = entrada.receberNumero(`Por favor, escolha uma opção de edição: `)
+                let escolhaEdicao = entrada.receberNumero(`\nPor favor, escolha uma opção de edição: `)
                 switch(escolhaEdicao) {
                     case 1:
                         let edicaoClientes = new EdicaoClientes(empresa.getClientes)
@@ -137,46 +141,50 @@ while (execucao) {
                         console.log('Número inválido')
                 }
             }
+            break
             
-        // case 4:
-        // let exclusaoExecucao = true
-        // while (exclusaoExecucao) {
-            //     console.log('\n')
-            //     console.log('--- Edição ---')
-            //     console.log(`1 - Edição de clientes`)
-            //     console.log(`2 - Edição de pets`)
-            //     console.log(`3 - Edição de produtos`)
-            //     console.log(`4 - Edição do serviços`)
-            //     console.log(`0 - Voltar`)
-            //     let escolhaExclusao = entrada.receberNumero(`Por favor, escolha uma opção de exclusão: `)
-            //     switch(escolhaExclusao) {
-            //         case 1:
-            //             let exclusaoClientes = new ExclusaoClientes(empresa.getClientes)
-            //             exclusaoClientes.excluir()
-            //             break;
-            //         case 2:
-            //             let exclusaoPet = new ExclusaoPet(empresa.getPets, empresa.getClientes)
-            //             exclusaoPet.excluir()
-            //             break;
-            //         case 3:
-            //             let exclusaoProdutos = new ExclusaoProduto(empresa.getProdutos)
-            //             exclusaoProdutos.excluir()
-            //             break;
-            //         case 4:
-            //             let exclusaoServicos = new ExclusaoServicos(empresa.getServicos)
-            //             exclusaoServicos.excluir()
-            //             break;
-            //         case 0:
-            //             break;
-                        //    exclusaoExecucao = false
-            //         default:
-            //             console.log('Número inválido')
-            //     }
-            // break;
+        case 4:
+            let exclusaoExecucao = true
+            while (exclusaoExecucao) {
+                    console.log('\n')
+                    console.log('--- Exclusão ---')
+                    console.log(`1 - Exclusão de clientes`)
+                    console.log(`2 - Exclusão de pets`)
+                    console.log(`3 - Exclusão de produtos`)
+                    console.log(`4 - Exclusão do serviços`)
+                    console.log(`0 - Voltar`)
+                    let escolhaExclusao = entrada.receberNumero(`\nPor favor, escolha uma opção de exclusão: `)
+                    switch(escolhaExclusao) {
+                        case 1:
+                            let exclusaoClientes = new ExclusaoCliente(empresa.getClientes, empresa.getPets)
+                            exclusaoClientes.excluir()
+                            break;
+                        case 2:
+                            let exclusaoPet = new ExclusaoPets(empresa.getPets, empresa.getClientes)
+                            exclusaoPet.excluir()
+                            break;
+                        case 3:
+                            let exclusaoProdutos = new ExclusaoProduto(empresa.getProdutos)
+                            exclusaoProdutos.excluir()
+                            break;
+                        case 4:
+                            let exclusaoServicos = new ExclusaoServico(empresa.getServicos)
+                            exclusaoServicos.excluir()
+                            break;
+                        case 0:
+                            exclusaoExecucao = false
+                            break;
+                        default:
+                            console.log('Opção inválida.')
+                        }
+                    }
+                    break;
         case 0: 
             console.log('\n')
             console.log('Até mais')
             execucao = false
             break;
-    }
+        default:
+            console.log('\nOpção inválida.')
+        }
 }

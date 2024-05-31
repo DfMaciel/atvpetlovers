@@ -21,7 +21,7 @@ export default class ListagemPets extends Listagem {
             console.log(`Tipo: ` + pet.getTipo);
             console.log(`Raça: ` + pet.getRaca);
             console.log(`Genero: ` + pet.getGenero);
-            console.log(`Dono: ` + pet.getDono)
+            console.log(`Dono: ` + (pet.getDono ? pet.getDono.nome : 'Sem dono'));
             console.log(`--------------------------------------`);
         });
         let entrada = this.entrada.receberTexto(`Aperte enter para continuar`);

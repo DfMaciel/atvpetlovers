@@ -4,6 +4,8 @@ import Produto from "./produto"
 import RG from "./rg"
 import Servico from "./servico"
 import Telefone from "./telefone"
+import Formatacoes from "../negocio/formatacoes"
+import Entrada from "../io/entrada"
 
 export default class Cliente {
     public nome: string
@@ -15,6 +17,7 @@ export default class Cliente {
     private produtosConsumidos: Array<Produto>
     private servicosConsumidos: Array<Servico>
     private pets: Array<Pet>
+    private entrada: Entrada
     constructor(nome: string, nomeSocial: string, cpf: CPF) {
         this.nome = nome
         this.nomeSocial = nomeSocial
@@ -25,6 +28,7 @@ export default class Cliente {
         this.produtosConsumidos = []
         this.servicosConsumidos = []
         this.pets = []
+        this.entrada = new Entrada()
     }
     public get getCpf(): CPF {
         return this.cpf
@@ -54,8 +58,20 @@ export default class Cliente {
             return false
         }
     }
-    public get getDataCadastro(): Date {
-        return this.dataCadastro
+    public excluirRg(valor: string): boolean {
+        let indice = this.rgs.findIndex(rg => rg.getValor === valor)
+        if (indice !== -1) {
+            this.rgs.splice(indice, 1)
+            return true
+        } else {
+            console.log('RG não encontrado. Por favor insira um valor correto.')
+            return false
+        }
+    }
+    public get getDataCadastro(): String {
+        let formatacao = new Formatacoes()
+        let dataCadastroFormatada = formatacao.DataString(this.dataCadastro)
+        return dataCadastroFormatada
     }
     public getTelefones(): void {
         if (this.telefones.length === 0) {
@@ -72,9 +88,30 @@ export default class Cliente {
     public addTelefones(telefone: Telefone): void{
         this.telefones.push(telefone)
     }
-    public updateTelefone(ddd: string, numero: string, novoTelefone: Telefone): boolean {
+    public updateTelefone(ddd: string, numero: string): boolean {
         let indice = this.telefones.findIndex(telefone => telefone.getNumero === numero && telefone.getDdd === ddd)
         if (indice !== -1) {
+            let novoDDD = this.entrada.receberNumero('Por favor insira o novo DDD: ')
+            if (novoDDD === 0) {
+                novoDDD = parseInt(this.telefones[indice].getDdd)
+            }
+            let novoNumero = this.entrada.receberNumero('Por favor insira o novo número: ')
+            if (novoNumero === 0) {
+                novoNumero = parseInt(this.telefones[indice].getNumero)
+            }
+            let novoTelefone  = new Telefone (ddd, numero)
+            this.telefones[indice] = novoTelefone;
+            return true
+        } else {
+            console.log('Telefone não encontrado. Por favor insira um número correto.')
+            return false
+        }
+    }
+    public excluirTelefone(ddd: string, numero: string): boolean {
+        let indice = this.telefones.findIndex(telefone => telefone.getNumero === numero && telefone.getDdd === ddd)
+        if (indice !== -1) {
+            this.telefones.splice(indice, 1)
+            let novoTelefone  = new Telefone (ddd, numero)
             this.telefones[indice] = novoTelefone;
             return true
         } else {
@@ -94,5 +131,8 @@ export default class Cliente {
     public addPet(pet: Pet) {
         this.pets.push(pet)
         pet.setDono(this)
+    }
+    public excluirPet(pets: Array<Pet>) {
+        this.pets = pets
     }
 }

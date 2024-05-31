@@ -34,14 +34,15 @@ export default class EdicaoServico {
                         let novoNomeServico = this.entrada.receberTexto('Digite o novo nome do serviço: ')
                         if (novoNomeServico === '') {
                             novoNomeServico = servico.nome
+                            console.log('Nome inválido')
                         }
                         servico.nome = novoNomeServico
-                        
                         break;
                     case 2:
                         let novoValorServico = this.entrada.receberNumero('Digite o novo valor do serviço: R$')
                         if (novoValorServico === 0) {
                             novoValorServico = servico.valor
+                            console.log('Valor inválido')
                         }
                         servico.valor = novoValorServico
                         break;
@@ -50,6 +51,7 @@ export default class EdicaoServico {
                     default: 
                         console.log('Opção inválida')
                     }   
+                    console.log('Serviço editado com sucesso.')
                     editar = false
                     break;
             }

@@ -15,10 +15,10 @@ export default class CadastroPet extends Cadastro {
     }
     public cadastrar(): void {
         console.log('\nInício do cadastro do pet')
-        let nome = this.entrada.receberTexto('Por favor informe o nome do pet: ')
-        let tipo = this.entrada.receberTexto('Por favor informe qual o tipo do pet: ')  
-        let raca = this.entrada.receberTexto('Por favor informe a raça do pet: ')
-        let generoinit = this.entrada.receberTexto('Por favor informe o genero do pet, no padrão M/F: ')
+        let nome = this.entrada.receberTextoObrigatorio('Por favor informe o nome do pet: ', 'Nome inválido, por favor insira um nome válido')
+        let tipo = this.entrada.receberTextoObrigatorio('Por favor informe qual o tipo do pet: ', 'Tipo inválido, por favor insira um tipo válido')  
+        let raca = this.entrada.receberTextoObrigatorio('Por favor informe a raça do pet: ', 'Raça inválida, por favor insira uma raça válida')
+        let generoinit = this.entrada.receberTextoObrigatorio('Por favor informe o genero do pet, no padrão M/F: ', 'Gênero inválido, por favor insira um gênero válido')
         
         let genero = ''
         switch (generoinit.toLocaleLowerCase()){
@@ -33,7 +33,7 @@ export default class CadastroPet extends Cadastro {
 
         let adicionando = true
         while (adicionando) {
-            let clienteCpf = this.entrada.receberTexto('Insira o cpf do Cliente dono do pet: ')
+            let clienteCpf = this.entrada.receberTextoObrigatorio('Insira o cpf do Cliente dono do pet: ', 'CPF inválido, por favor insira um CPF válido')
             const clienteVinculado = this.clientes.find(cliente => cliente.getCpf.getValor == clienteCpf)
             if (clienteVinculado) {
                 clienteVinculado.addPet(pet)

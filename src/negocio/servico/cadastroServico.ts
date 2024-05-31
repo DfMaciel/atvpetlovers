@@ -11,8 +11,8 @@ export default class CadastroServico extends Cadastro {
         this.entrada = new Entrada()
     }
     public cadastrar(): void {
-        let nome = this.entrada.receberTexto(`Digite o nome do serviço: `)
-        let valor = this.entrada.receberNumero(`Digite o valor do serviço: R$`)
+        let nome = this.entrada.receberTextoObrigatorio(`Digite o nome do serviço: `, `Nome inválido, por favor insira um nome válido.`)
+        let valor = this.entrada.receberNumeroObrigatorio(`Digite o valor do serviço: R$`, `Valor inválido, por favor insira um valor válido.`)
         let servico = new Servico(nome)
         servico.valor = valor
         this.servicos.push(servico)

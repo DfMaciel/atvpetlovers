@@ -11,8 +11,8 @@ export default class CadastroProduto extends Cadastro{
         this.entrada = new Entrada()
     }
     public cadastrar(): void {
-        let nome = this.entrada.receberTexto(`Digite o nome do produto: `)
-        let preco = this.entrada.receberNumero(`Digite o preço do produto: R$`)
+        let nome = this.entrada.receberTextoObrigatorio(`Digite o nome do produto: `, `Nome inválido, por favor insira um nome válido.`)
+        let preco = this.entrada.receberNumeroObrigatorio(`Digite o preço do produto: R$`, `Preço inválido, por favor insira um preço válido.`)
         let produto = new Produto(nome)
         produto.preco = preco
         this.produtos.push(produto)
