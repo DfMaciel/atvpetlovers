@@ -16,6 +16,8 @@ import ExclusaoCliente from "../negocio/cliente/exclusaoCliente";
 import ExclusaoPets from "../negocio/pet/exclusaoPet";
 import ExclusaoProduto from "../negocio/produto/exclusaoProduto";
 import ExclusaoServico from "../negocio/servico/exclusaoServico";
+import AdicionarProduto from "../negocio/cliente/adicionarProduto";
+import AdicionarServico from "../negocio/cliente/adicionarServico";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -27,6 +29,7 @@ while (execucao) {
     console.log(`2 - Listar`);
     console.log(`3 - Edição`)
     console.log(`4 - Exclusão`)
+    console.log('5 - Adicionar consumo')
     console.log(`0 - Sair`);
 
     let entrada = new Entrada()
@@ -179,6 +182,32 @@ while (execucao) {
                         }
                     }
                     break;
+        case 5:
+            let adicao = true
+            while (adicao) {
+                console.log('\n')
+                console.log('--- Adicionar consumo ---')
+                console.log('1 - Adicionar consumo de produtos')
+                console.log('2 - Adicionar consumo de serviços')
+                console.log('0 - Voltar')
+                let opcaoConsumo = entrada.receberNumero('Por favor, escolha uma opção: ')
+                switch (opcaoConsumo) {
+                    case 1:
+                        let adicionarProduto = new AdicionarProduto(empresa.getProdutos, empresa.getClientes)
+                        adicionarProduto.adicionar()
+                        break;
+                    case 2:
+                        let adicionarServico = new AdicionarServico(empresa.getServicos, empresa.getClientes)
+                        adicionarServico.adicionar()
+                        break;
+                    case 0:
+                        adicao = false
+                        break;
+                    default:
+                        console.log('Opção inválida.')
+                    }
+                }
+                break;
         case 0: 
             console.log('\n')
             console.log('Até mais')

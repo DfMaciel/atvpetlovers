@@ -33,8 +33,28 @@ export default class ListagemClientes extends Listagem {
                 console.log(`Raça: ` + pet.getRaca)
                 console.log(`Genero: ` + pet.getGenero)     
             console.log(`--------------------------------------`);
+            });
+            console.log('Produtos consumidos:')
+            let clienteProdutos = cliente.getProdutosConsumidos;
+            if (clienteProdutos.length === 0) {
+                console.log('O cliente não possui produtos consumidos')
+            }
+            clienteProdutos.forEach(produto => {
+                console.log(`Nome: ` + produto.getNome)
+                console.log(`Valor: R$ ` + produto.getPreco)
+                console.log(`--------------------------------------`);
+            });
+            let clienteServicos = cliente.getServicosConsumidos;
+            console.log('Serviços consumidos:')
+            if (clienteServicos.length === 0) {
+                console.log('O cliente não possui serviços consumidos')
+            }
+            clienteServicos.forEach(servico => {
+                console.log(`Nome: ` + servico.getNome)
+                console.log(`Valor: R$` + servico.getValor)
+                console.log(`--------------------------------------`);
+            });
         });
         let entrada = this.entrada.receberTexto(`Aperte enter para continuar`);
-    });
     }
 }
