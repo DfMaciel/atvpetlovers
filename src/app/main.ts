@@ -18,6 +18,8 @@ import ExclusaoProduto from "../negocio/produto/exclusaoProduto";
 import ExclusaoServico from "../negocio/servico/exclusaoServico";
 import AdicionarProduto from "../negocio/cliente/adicionarProduto";
 import AdicionarServico from "../negocio/cliente/adicionarServico";
+import ListagemClientesProdutos from "../negocio/produto/listagemDezClientes";
+import ListagemClientesServicos from "../negocio/servico/listagemDezClientes";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -81,6 +83,8 @@ while (execucao) {
                 console.log(`2 - Listagem de pets`)
                 console.log(`3 - Listagem de produtos`)
                 console.log(`4 - Listagem do serviços`)
+                console.log(`5 - Clientes que mais consumiram produtos`)
+                console.log(`6 - Clientes que mais consumiram serviços`)
                 console.log(`0 - Voltar`)
                 let escolhaListagem = entrada.receberNumero(`\nPor favor, escolha uma opção de listagem: `)
                 switch(escolhaListagem) {
@@ -99,6 +103,14 @@ while (execucao) {
                     case 4:
                         let listagemServicos = new ListagemServicos(empresa.getServicos)
                         listagemServicos.listar()
+                        break;
+                    case 5:
+                        let listagemClientesProdutos = new ListagemClientesProdutos(empresa.getClientes)
+                        listagemClientesProdutos.listar()
+                        break;
+                    case 6:
+                        let listagemClientesServicos = new ListagemClientesServicos(empresa.getClientes)
+                        listagemClientesServicos.listar()
                         break;
                     case 0:
                         listagemExecucao = false
