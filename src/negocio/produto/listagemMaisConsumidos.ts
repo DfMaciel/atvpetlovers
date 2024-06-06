@@ -31,7 +31,7 @@ export default class ProdutosMaisConsumidos extends Listagem {
 
         console.log("Listagem de produtos mais consumidos")
         produtosConsumidos.sort((a, b) => b.quantidade - a.quantidade).forEach((produto, index) => {
-            console.log(`| ${index + 1} - Nome: ${produto.produtoNome} | Quantidade: ${produto.quantidade} |`)
+            console.log(`${index + 1}º - ${produto.produtoNome} - Quantidade: ${produto.quantidade}`)
         })
     }
 }
