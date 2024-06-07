@@ -54,6 +54,7 @@ export default class EdicaoPets extends Edicao {
                             novaRaca = pet.getRaca
                         }
                         pet.setRaca(novaRaca)
+                        break;
                     case 4:
                         let novoGenero = this.entrada.receberTexto('Por favor informe o novo genero do pet, no padrão M/F: ')
                         if (novoGenero === '') {
@@ -76,6 +77,8 @@ export default class EdicaoPets extends Edicao {
                         break;
                     default: 
                         console.log('Opção inválida')
+                        editar = false
+                        break;
                 }
                 break;
             } else {

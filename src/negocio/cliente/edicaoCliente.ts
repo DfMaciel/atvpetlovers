@@ -5,6 +5,9 @@ import RG from "../../modelo/rg";
 import Telefone from "../../modelo/telefone";
 import Edicao from "../edicao";
 import EdicaoPets from "../pet/edicaoPet";
+import ExclusaoPets from "../pet/exclusaoPet";
+import ExclusaoProduto from "../produto/exclusaoProduto";
+import ExclusaoServico from "../servico/exclusaoServico";
 
 export default class EdicaoClientes extends Edicao {
     private clientes: Array<Cliente>
@@ -41,6 +44,8 @@ export default class EdicaoClientes extends Edicao {
                     console.log('3 - RG')
                     console.log('4 - Telefone')
                     console.log('5 - Pets')
+                    console.log('6 - Produtos consumidos')
+                    console.log('7 - Serviços Consumidos')
                     console.log('0 - Voltar')
                     let escolhaEditar = this.entrada.receberNumero('Por favor, escolha uma opção de edição: ')
                     switch (escolhaEditar) {
@@ -54,7 +59,7 @@ export default class EdicaoClientes extends Edicao {
                         case 2:
                             let novoNomeSocial = this.entrada.receberTexto('Por favor informe o novo nome social do cliente: ')
                             if (novoNomeSocial === '') {
-                                novoNomeSocial = cliente.nome
+                                novoNomeSocial = cliente.nomeSocial
                             }
                             cliente.nomeSocial = novoNomeSocial
                             break
@@ -101,27 +106,28 @@ export default class EdicaoClientes extends Edicao {
                                         let resultadoEdicao = cliente.updateRg(escolhaRg, novoRg)
                                         if (resultadoEdicao) {
                                             console.log('RG editado com sucesso!')
-                                            break;
                                         }
                                         else {
                                             console.log('Erro ao editar RG')
-                                            break;
                                         }
+                                        break;
                                     }
+                                    break
                                 case 3: 
                                     console.log('Lista de RGs:')
-                                    cliente.getTelefones()
+                                    cliente.getRgs()
                                     let escolhaRgExcluir = this.entrada.receberTexto('Por favor informe o RG que deseja excluir: ')
                                     let rgExcluido  = cliente.excluirRg(escolhaRgExcluir)
                                     if (rgExcluido) {
-                                        console.log('Telefone excluído com sucesso!')
-                                        break
+                                        console.log('RG excluído com sucesso!')
                                     }
                                 case 0:
                                     break;
                                 default:
                                     console.log('Opção inválida')
+                                break;
                             }
+                            break;
                         case 4:
                             console.log('Você deseja editar ou adicionar um telefone?')
                             console.log('1 - Adicionar telefone')
@@ -132,11 +138,19 @@ export default class EdicaoClientes extends Edicao {
                             switch(opcaoTelefone) {
                                 case 1:
                                     let ddd = this.entrada.receberTexto('Por favor insira o DDD do telefone: ')
+                                    if (ddd === '') {
+                                        console.log('DDD inválido')
+                                        break;
+                                    }
                                     let numero = this.entrada.receberTexto('Por favor insira o número do telefone: ')
+                                    if (numero === '') {
+                                        console.log('Número inválido')
+                                        break;
+                                    }
                                     let telefoneNovo = new Telefone(ddd, numero)
                                     cliente.addTelefones(telefoneNovo)
                                     console.log('Telefone adicionado com sucesso!')
-                                    break
+                                    break;
                                 case 2:
                                     console.log('Lista de Telefones: ')
                                     cliente.getTelefones()
@@ -145,8 +159,8 @@ export default class EdicaoClientes extends Edicao {
                                     let telefone  = cliente.updateTelefone(escolhaTelefoneDdd, escolhaTelefoneNum)
                                     if (telefone) {
                                         console.log('Telefone editado com sucesso!')
-                                        break
                                     }
+                                    break;
                                 case 3:
                                     console.log('Lista de Telefones: ')
                                     cliente.getTelefones()
@@ -155,28 +169,67 @@ export default class EdicaoClientes extends Edicao {
                                     let telefoneExcluido  = cliente.excluirTelefone(escolhaTelefoneDddExcluir, escolhaTelefoneNumExcluir)
                                     if (telefoneExcluido) {
                                         console.log('Telefone excluído com sucesso!')
-                                        break
                                     }
+                                    break;
                                 case 0:
                                     break
                                 default:
                                     console.log('Opção inválida.')
                                 }
+                                break;
                         case 5:
-                            console.log('Lista de pets: \n')
-                            cliente.getPets.forEach(pet => {
-                                console.log('Nome: ', pet.getNome)
+                            console.log('Você deseja editar ou remover um pet?')
+                            console.log('1 - Editar pet')
+                            console.log('2 - Remover pet')
+                            console.log('0 - Voltar')
+                            let opcaoPet = this.entrada.receberNumeroObrigatorio('Por favor, escolha uma opção: ', 'Opção inválida, por favor insira uma opção válida.')
+                            switch(opcaoPet) {
+                                case 1:
+                                    console.log('Lista de pets: \n')
+                                    cliente.getPets.forEach(pet => {
+                                        console.log('Nome: ', pet.getNome)
+                                    })
+                                    let edicaoPets = new EdicaoPets(cliente.getPets)
+                                    edicaoPets.editar()
+                                    break;
+                                case 2:
+                                    console.log('Lista de pets: \n')
+                                    cliente.getPets.forEach(pet => {
+                                        console.log('Nome: ', pet.getNome)
+                                    })
+                                    let exclusaoPet = new ExclusaoPets(cliente.getPets, this.clientes)
+                                    exclusaoPet.excluir()
+                                    break;
+                                case 0:
+                                    break;
+                                default:
+                                    console.log('Opção inválida')
+                            }
+                            break;    
+                        case 6: 
+                            console.log('Lista de produtos consumidos: \n')
+                            cliente.getProdutosConsumidos.forEach(produto => {
+                                console.log('Nome: ', produto.getNome)
                             })
-                            let edicaoPets = new EdicaoPets(cliente.getPets)
-                            edicaoPets.editar()
+                            let edicaoProdutos = new ExclusaoProduto(cliente.getProdutosConsumidos)
+                            edicaoProdutos.excluir()
+                            break;
+                        case 7:
+                            console.log('Lista de serviços consumidos: \n')
+                            cliente.getServicosConsumidos.forEach(servico => {
+                                console.log('Nome: ', servico.getNome)
+                            })
+                            let edicaoServicos = new ExclusaoServico(cliente.getServicosConsumidos)
+                            edicaoServicos.excluir()
                             break;
                         case 0: 
                             clienteEscolhido = false
+                            editar = false
                             break;
                         default:
                             console.log('Opção inválida.')
+                        break;
                     }
-                    editar = false
                 }
             } else {
                 console.log('Cliente não encontrado')
