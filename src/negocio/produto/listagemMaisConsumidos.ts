@@ -1,5 +1,4 @@
 import Entrada from "../../io/entrada";
-import Produto from "../../modelo/produto";
 import Cliente from "../../modelo/cliente";
 import Listagem from "../listagem";
 
@@ -33,5 +32,8 @@ export default class ProdutosMaisConsumidos extends Listagem {
         produtosConsumidos.sort((a, b) => b.quantidade - a.quantidade).forEach((produto, index) => {
             console.log(`${index + 1}º - ${produto.produtoNome} - Quantidade: ${produto.quantidade}`)
         })
+
+        let digitar = this.entrada.receberTexto('Aperte enter para continuar')
+
     }
 }

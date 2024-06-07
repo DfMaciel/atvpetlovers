@@ -20,6 +20,12 @@ import AdicionarProduto from "../negocio/cliente/adicionarProduto";
 import AdicionarServico from "../negocio/cliente/adicionarServico";
 import ListagemClientesProdutos from "../negocio/produto/listagemDezClientes";
 import ListagemClientesServicos from "../negocio/servico/listagemDezClientes";
+import ProdutosMaisConsumidos from "../negocio/produto/listagemMaisConsumidos";
+import ServicosMaisConsumidos from "../negocio/servico/listagemMaisConsumidos";
+import ListagemProdutosMaisConsumidosPets from "../negocio/produto/listagemMaisConsumidosPets";
+import ListagemServicosMaisConsumidosPets from "../negocio/servico/listagemMaisConsumidosPets";
+import ListagemClientesValorProdutos from "../negocio/produto/listagemDezClientesValor";
+import ListagemClientesValorServicos from "../negocio/servico/listagemDezClientesValor";
 
 console.log(`Bem-vindo ao melhor sistema de gerenciamento de pet shops e clínicas veterinarias`)
 let empresa = new Empresa()
@@ -85,6 +91,12 @@ while (execucao) {
                 console.log(`4 - Listagem do serviços`)
                 console.log(`5 - Clientes que mais consumiram produtos`)
                 console.log(`6 - Clientes que mais consumiram serviços`)
+                console.log(`7 - Produtos mais consumidos`)
+                console.log(`8 - Serviços mais consumidos`)
+                console.log(`9 - Produtos mais consumidos por pets`)
+                console.log(`10 - Serviços mais consumidos por pets`)
+                console.log(`11 - Clientes que mais gastaram com produtos`)
+                console.log(`12 - Clientes que mais gastaram com serviços`)
                 console.log(`0 - Voltar`)
                 let escolhaListagem = entrada.receberNumero(`\nPor favor, escolha uma opção de listagem: `)
                 switch(escolhaListagem) {
@@ -111,6 +123,30 @@ while (execucao) {
                     case 6:
                         let listagemClientesServicos = new ListagemClientesServicos(empresa.getClientes)
                         listagemClientesServicos.listar()
+                        break;
+                    case 7:
+                        let produtosMaisConsumidos = new ProdutosMaisConsumidos(empresa.getClientes)
+                        produtosMaisConsumidos.listar()
+                        break;
+                    case 8:
+                        let servicosMaisConsumidos = new ServicosMaisConsumidos(empresa.getClientes)
+                        servicosMaisConsumidos.listar()
+                        break;
+                    case 9:
+                        let listagemProdutosMaisConsumidosPets = new ListagemProdutosMaisConsumidosPets(empresa.getClientes)
+                        listagemProdutosMaisConsumidosPets.listar()
+                        break;
+                    case 10:
+                        let listagemServicosMaisConsumidosPets = new ListagemServicosMaisConsumidosPets(empresa.getClientes)
+                        listagemServicosMaisConsumidosPets.listar()
+                        break;
+                    case 11:
+                        let listagemClientesValorProdutos = new ListagemClientesValorProdutos(empresa.getClientes)
+                        listagemClientesValorProdutos.listar()
+                        break;
+                    case 12:
+                        let listagemClientesValorServicos = new ListagemClientesValorServicos(empresa.getClientes)
+                        listagemClientesValorServicos.listar()
                         break;
                     case 0:
                         listagemExecucao = false

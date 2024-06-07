@@ -32,6 +32,7 @@ export default class EdicaoPets extends Edicao {
                 console.log('0 - Voltar')
 
                 let escolhaEditar = this.entrada.receberNumero('Por favor, escolha uma opção de edição: ')
+                
                 switch (escolhaEditar) {
                     case 1:
                         let novoNome = this.entrada.receberTexto('Por favor informe o novo nome do pet: ')
@@ -54,9 +55,19 @@ export default class EdicaoPets extends Edicao {
                         }
                         pet.setRaca(novaRaca)
                     case 4:
-                        let novoGenero = this.entrada.receberTexto('Por favor informe o novo genero do pet: ')
+                        let novoGenero = this.entrada.receberTexto('Por favor informe o novo genero do pet, no padrão M/F: ')
                         if (novoGenero === '') {
                             novoGenero = pet.getGenero
+                        }
+                        else {
+                            switch (novoGenero.toLocaleLowerCase()){
+                                case('m'):
+                                    novoGenero = 'Macho'
+                                    break;
+                                case('f'):
+                                    novoGenero = 'Femea'
+                                    break;
+                            }
                         }
                         pet.setGenero(novoGenero)
                         break
