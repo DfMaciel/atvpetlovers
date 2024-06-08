@@ -3,7 +3,7 @@ import { Component } from "react";
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import CardComponent from "./cardComponent";
+import CardComponent from "../cardComponent";
 
 type props = {
     tema: string

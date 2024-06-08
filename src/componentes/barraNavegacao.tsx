@@ -2,11 +2,15 @@
 import { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import styles from '../styles/navbar.module.css'
 
 type props = {
     tema: string,
-    botoes: string[],
-    seletorView: Function
+    botoes: {nome: string, 
+        dropdownItems: {
+        nome: string 
+    }[]}[],
+    selecionarView: Function
 }
 
 export default class BarraNavegacao extends Component<props>{
@@ -20,9 +24,18 @@ export default class BarraNavegacao extends Component<props>{
         if (this.props.botoes.length <= 0) {
             return <></>
         } else {
-            let lista = this.props.botoes.map(valor =>
-                <li key={valor} className="nav-item">
-                    <a className="nav-link" href="#" onClick={(e) => this.props.seletorView(valor, e)}>{valor}</a>
+            let lista = this.props.botoes.map(botao =>
+                <li key={botao.nome} className="nav-item dropdown">
+                    <a className={`nav-link dropdown-toggle ${styles.navItem}`} href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {botao.nome}
+                    </a>
+                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        {botao.dropdownItems.map((item, index) =>
+                            <li key={index}>
+                                <a className={`dropdown-item ${styles.dropdownItems}`} href="#" onClick={(e) => this.props.selecionarView(item.nome, e)}>{item.nome}</a>
+                            </li>
+                        )}
+                    </ul>
                 </li>
             )
             return lista
