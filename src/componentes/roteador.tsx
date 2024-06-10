@@ -82,7 +82,10 @@ const clientes = [
         },
         rg: [{
             numero: "4567890",
-            dataEmissao: "04/04/2003",
+            dataEmissao: "04/04/2003"}, 
+            {
+            numero: "5678901",
+            dataEmissao: "10/05/2002", 
         }],
         telefone: "(44) 44444-4444",
         pets: [{

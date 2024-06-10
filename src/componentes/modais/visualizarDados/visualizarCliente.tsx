@@ -1,6 +1,8 @@
 import { Component } from "react";
 import InputMask from 'react-input-mask';
 import { ViewCliente } from "../../interface/iCliente";
+import Form from 'react-bootstrap/Form';
+import { FloatingLabel } from "react-bootstrap";
 
 type props = {
     tema: string
@@ -47,11 +49,12 @@ export default class VisualizarCliente extends Component<props, state> {
         })
     }
 
-    handleEdicaoRg = (event: React.ChangeEvent<HTMLInputElement>, property: string) => {
+    handleEdicaoRg = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (this.state.rgEscolhido !== null) {
+            const { name, value } = event.target;
             const novoRg = this.state.cliente.rg.map((rg, rgIndex) => {
                 if (this.state.rgEscolhido !== rgIndex) return rg;
-                return { ...rg, [property]: event.target.value };
+                return { ...rg, [name]: value };
             });
 
             this.setState(prevState => ({
@@ -66,14 +69,21 @@ export default class VisualizarCliente extends Component<props, state> {
             <div className="container-fluid">
                 <form>
                     <div className="input-group mb-3">
-                        <input type="text" name="nome" className="form-control" placeholder="Nome" value={this.state.cliente.nome} onChange={this.handleInputChange} aria-label="Nome" aria-describedby="basic-addon1"/>
+                        <FloatingLabel controlId="floatingInput" label="Nome" className="mb-3">
+                            <Form.Control type="text" name="nome" className="form-control" placeholder="Nome" value={this.state.cliente.nome} onChange={this.handleInputChange} aria-label="Nome" aria-describedby="basic-addon1"/>
+                        </FloatingLabel>
                     </div>
                     <div className="input-group mb-3">
-                        <input type="text" name="nomeSocial" value={this.state.cliente.nomeSocial} onChange={this.handleInputChange} className="form-control" placeholder="Nome social" aria-label="Nome social" aria-describedby="basic-addon1" />
+                        <FloatingLabel controlId="floatingInput" label="Nome Social" className="mb-3">
+                            <Form.Control type="text" name="nomeSocial" value={this.state.cliente.nomeSocial} onChange={this.handleInputChange} className="form-control" placeholder="Nome social" aria-label="Nome social" aria-describedby="basic-addon1" />
+                        </FloatingLabel>
                     </div>
                     <div className="input-group mb-3">
-                        <span className="input-group-text" id="basic-addon1" style={{ background: tema }}>@</span>
-                        <input type="text" name="email" value={this.state.cliente.email} onChange={this.handleInputChange} className="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1" /> 
+                        <FloatingLabel controlId="floatingInput" label="Email" className="mb-3">
+                            <span className="input-group-text" id="basic-addon1" style={{ background: tema }}>@</span>
+                            <input type="text" name="email" value={this.state.cliente.email} onChange={this.handleInputChange} className="form-control" placeholder="E-mail" aria-label="E-mail" aria-describedby="basic-addon1" /> 
+                        </FloatingLabel>
+
                     </div>
                     <div className="input-group mb-3">
                         <InputMask mask="999.999.999-99" name="cpf" value={this.state.cliente.cpf.numero} className="form-control" placeholder="CPF" aria-label="CPF" aria-describedby="basic-addon1" disabled/>
@@ -82,19 +92,20 @@ export default class VisualizarCliente extends Component<props, state> {
                     <input type="text" name="dataEmissaoCPF" value={this.state.cliente.cpf.dataEmissao} className="form-control" placeholder="Data de Emissão do CPF" aria-label="Data de emissão cpf" aria-describedby="basic-addon1" disabled/>
                     </div>
                     <div className="input-group mb-3">
-                        <select value={this.state.rgEscolhido || ""} onChange={(event) => this.handeEscolhaRg(event)}>
+                        <Form.Select value={this.state.rgEscolhido || ""} className="form-control" aria-describedby="basic-addon1" onChange={(event) => this.handeEscolhaRg(event)}>
                             {this.state.cliente.rg.map((rg, index) => (
                                 <option key={index} value={index}>
                                     {rg.numero}
                                 </option>
                         ))}
-                        </select>                  
+                        </Form.Select>                  
                     </div>
                     <div className="input-group mb-3">
                     {this.state.rgEscolhido !== null && (
                         <div>
-                            <InputMask mask="999.999.999-99" name="numero" value={this.state.cliente.rg[this.state.rgEscolhido].numero} onChange={this.handleEdicaoRg} />
-                            <input type="date" name="dataEmissao" value={this.state.cliente.rg[this.state.rgEscolhido].dataEmissao} onChange={this.handeEscolhaRg} />
+                            <InputMask mask="999.999.999-99" name="numero" className="form-control" aria-describedby="basic-addon1" value={this.state.cliente.rg[this.state.rgEscolhido].numero} onChange={this.handleEdicaoRg} />
+                            <input type="text" name="dataEmissao" className="form-control" aria-describedby="basic-addon1" value={this.state.cliente.rg[this.state.rgEscolhido].dataEmissao} onChange={this.handleEdicaoRg} onFocus={(event) => event.target.type = 'date'} 
+                        onBlur={(event) => event.target.type = 'text'}/>
                         </div>
                     )}          
                     </div>
