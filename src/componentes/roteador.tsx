@@ -84,7 +84,7 @@ const clientes = [
             numero: "4567890",
             dataEmissao: "04/04/2003",
         }],
-        telefone: "(44) 4444-4444",
+        telefone: "(44) 44444-4444",
         pets: [{
             nome: "Pet 4",
             tipo: "Cachorro",
@@ -113,7 +113,7 @@ const clientes = [
             numero: "5678901",
             dataEmissao: "05/05/2004",
         }],
-        telefone: "(55) 5555-5555",
+        telefone: "(55) 55555-5555",
         pets: [{
             nome: "Pet 5",
             tipo: "Gato",

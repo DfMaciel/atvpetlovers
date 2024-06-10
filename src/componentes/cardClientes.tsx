@@ -41,7 +41,7 @@ export default class CardClientes extends Component<props, state> {
                         <Card.Text>
                             <a> {this.state.cliente.nome}</a>
                         </Card.Text>
-                        <Button variant="primary" onClick={() => this.handleModal(true, this.state.cliente, this.state.cliente.nome)}>Ver Detalhes</Button>
+                        <Button variant="primary"  style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => this.handleModal(true, this.state.cliente, this.state.cliente.nome)}>Ver Detalhes</Button>
                         {/* <Button variant="primary" onClick={() => this.handleModal(true, this.state.cliente)}>Pets</Button>
                         <Button variant="primary" onClick={() => this.handleModal(true, this.state.cliente)}>Produtos</Button>
                         <Button variant="primary" onClick={() => this.handleModal(true, this.state.cliente)}>Serviços</Button> */}
