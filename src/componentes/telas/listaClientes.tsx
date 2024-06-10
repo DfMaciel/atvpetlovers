@@ -3,40 +3,25 @@ import { Component } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardClientes from "../cardClientes";
+import { ViewCliente } from "../interface/iCliente";
 
 type props = {
     tema: string;
-    clientes: cliente[];
-}
-
-interface cliente {
-    nome: string,
-    nomeSocial: string,
-    email: string,
-    cpf: string,
-    dataEmissaoCpf: string,
-    rg: string,
-    dataEmissaoRg: string,
-    telefone: string,
-    pets: {
-        nome: string,
-        tipo: string,
-        raca: string,
-        genero: string,
-    },
-    id: number
+    clientes: ViewCliente[];
 }
 
 export default class ListaCliente extends Component<props>{
     render() {
         let tema = this.props.tema
         return (
-            <div className="container-fluid">
-                <h3 style={{textAlign: "center"}}> Lista de Clientes </h3>
-                {this.props.clientes.map((cliente, idx) => (
-                    <CardClientes key={idx} cliente={cliente}/>
-                ))}
-            </div>
+            <>
+                <div className="container-fluid">
+                    <h3 style={{textAlign: "center"}}> Lista de Clientes </h3>
+                    {this.props.clientes.map((cliente, idx) => (
+                        <CardClientes key={idx} cliente={cliente}/>
+                    ))}
+                </div>
+        </>
         )
     }
 }

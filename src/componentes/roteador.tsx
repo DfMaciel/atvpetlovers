@@ -1,13 +1,13 @@
 import { Component } from "react";
 import BarraNavegacao from "./barraNavegacao";
 import ListaCliente from "./telas/listaClientes";
-import FormularioCadastroCliente from "./modais/formularioCadastroCliente";
+import FormularioCadastroCliente from "./modais/formulariosCadastro/formularioCadastroCliente";
 import ListaPets from "./telas/listaPets";
 import ListaServicos from "./telas/listaServicos";
 import Modal from 'react-bootstrap/Modal';
-import FormularioCadastroPet from "./modais/formularioCadastroPet";
-import FormularioCadastroServico from "./modais/formularioCadastroServico";
-import FormularioCadastroProduto from "./modais/formularioCadastroProduto";
+import FormularioCadastroPet from "./modais/formulariosCadastro/formularioCadastroPet";
+import FormularioCadastroServico from "./modais/formulariosCadastro/formularioCadastroServico";
+import FormularioCadastroProduto from "./modais/formulariosCadastro/formularioCadastroProduto";
 
 type state = {
     tela: string
@@ -21,89 +21,113 @@ interface ConteudoModais {
 }
 
 const clientes = [
-    {
-        nome: "Cliente 1",
-        nomeSocial: "C1",
-        email: "cliente1@email.com",
-        cpf: "123.456.789-01",
-        dataEmissaoCpf: "01/01/2000",
-        rg: "1234567",
-        dataEmissaoRg: "01/01/2000",
-        telefone: "(11) 1111-1111",
-        pets: {
-            nome: "Pet 1",
-            tipo: "Cachorro",
-            raca: "Labrador",
-            genero: "Macho",
-        },
-        id: 1
-    },
-    {
-        nome: "Cliente 2",
-        nomeSocial: "C2",
-        email: "cliente2@email.com",
-        cpf: "234.567.890-12",
-        dataEmissaoCpf: "02/02/2001",
-        rg: "2345678",
-        dataEmissaoRg: "02/02/2001",
-        telefone: "(22) 2222-2222",
-        pets: {
-            nome: "Pet 2",
-            tipo: "Gato",
-            raca: "Siamese",
-            genero: "Fêmea",
-        },
-        id: 2
-    },
-    {
-        nome: "Cliente 3",
-        nomeSocial: "C3",
-        email: "cliente3@email.com",
-        cpf: "345.678.901-23",
-        dataEmissaoCpf: "03/03/2002",
-        rg: "3456789",
-        dataEmissaoRg: "03/03/2002",
-        telefone: "(33) 3333-3333",
-        pets: {
-            nome: "Pet 3",
-            tipo: "Pássaro",
-            raca: "Canário",
-            genero: "Macho",
-        },
-        id: 3
-    },
+    // {
+    //     nome: "Cliente 1",
+    //     nomeSocial: "C1",
+    //     email: "cliente1@email.com",
+    //     cpf: "123.456.789-01",
+    //     dataEmissaoCpf: "01/01/2000",
+    //     rg: "1234567",
+    //     dataEmissaoRg: "01/01/2000",
+    //     telefone: "(11) 1111-1111",
+    //     pets: {
+    //         nome: "Pet 1",
+    //         tipo: "Cachorro",
+    //         raca: "Labrador",
+    //         genero: "Macho",
+    //     },
+    //     id: 1
+    // },
+    // {
+    //     nome: "Cliente 2",
+    //     nomeSocial: "C2",
+    //     email: "cliente2@email.com",
+    //     cpf: "234.567.890-12",
+    //     dataEmissaoCpf: "02/02/2001",
+    //     rg: "2345678",
+    //     dataEmissaoRg: "02/02/2001",
+    //     telefone: "(22) 2222-2222",
+    //     pets: {
+    //         nome: "Pet 2",
+    //         tipo: "Gato",
+    //         raca: "Siamese",
+    //         genero: "Fêmea",
+    //     },
+    //     id: 2
+    // },
+    // {
+    //     nome: "Cliente 3",
+    //     nomeSocial: "C3",
+    //     email: "cliente3@email.com",
+    //     cpf: "345.678.901-23",
+    //     dataEmissaoCpf: "03/03/2002",
+    //     rg: "3456789",
+    //     dataEmissaoRg: "03/03/2002",
+    //     telefone: "(33) 3333-3333",
+    //     pets: {
+    //         nome: "Pet 3",
+    //         tipo: "Pássaro",
+    //         raca: "Canário",
+    //         genero: "Macho",
+    //     },
+    //     id: 3
+    // },
     {
         nome: "Cliente 4",
         nomeSocial: "C4",
         email: "cliente4@email.com",
-        cpf: "456.789.012-34",
-        dataEmissaoCpf: "04/04/2003",
-        rg: "4567890",
-        dataEmissaoRg: "04/04/2003",
+        cpf: {
+            numero: "456.789.012-34",
+            dataEmissao: "04/04/2003",
+        },
+        rg: [{
+            numero: "4567890",
+            dataEmissao: "04/04/2003",
+        }],
         telefone: "(44) 4444-4444",
-        pets: {
+        pets: [{
             nome: "Pet 4",
             tipo: "Cachorro",
             raca: "Poodle",
             genero: "Fêmea",
-        },
+        }],
+        produtos: [{
+            nome: 'Produto 1',
+            preco: 30,
+        }],
+        servicos: [{
+            nome: 'Serviço 1',
+            preco: 50,
+        }],
         id: 4
     },
     {
         nome: "Cliente 5",
         nomeSocial: "C5",
         email: "cliente5@email.com",
-        cpf: "567.890.123-45",
-        dataEmissaoCpf: "05/05/2004",
-        rg: "5678901",
-        dataEmissaoRg: "05/05/2004",
+        cpf: {
+            numero: "567.890.123-45",
+            dataEmissao: "05/05/2004",
+        },
+        rg: [{
+            numero: "5678901",
+            dataEmissao: "05/05/2004",
+        }],
         telefone: "(55) 5555-5555",
-        pets: {
+        pets: [{
             nome: "Pet 5",
             tipo: "Gato",
             raca: "Persa",
             genero: "Macho",
-        },
+        }],
+        produtos: [{
+            nome: "Produto 5",
+            preco: 60,
+        }],
+        servicos: [{
+            nome: "Serviço 5",
+            preco: 110,
+        }],
         id: 5
     },
 ];
