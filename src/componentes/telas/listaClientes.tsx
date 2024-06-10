@@ -2,7 +2,7 @@
 import { Component } from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardClientes from "../cardClientes";
+import CardClientes from "../cards/cardClientes";
 import { ViewCliente } from "../interface/iCliente";
 
 type props = {

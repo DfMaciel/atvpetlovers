@@ -135,6 +135,82 @@ const clientes = [
     },
 ];
 
+const pets = [
+    {
+    nome: "Fido",
+    tipo: "Dog",
+    raca: "Labrador",
+    genero: "Male",
+    dono: {
+        nome: "Cliente 5",
+        nomeSocial: "C5",
+        email: "cliente5@email.com",
+        cpf: {
+            numero: "567.890.123-45",
+            dataEmissao: "05/05/2004",
+        },
+        rg: [{
+            numero: "5678901",
+            dataEmissao: "05/05/2004",
+        }],
+        telefone: "(55) 55555-5555",
+        pets: [{
+            nome: "Pet 5",
+            tipo: "Gato",
+            raca: "Persa",
+            genero: "Macho",
+        }],
+        produtos: [{
+            nome: "Produto 5",
+            preco: 60,
+        }],
+        servicos: [{
+            nome: "Serviço 5",
+            preco: 110,
+        }],
+        id: 5
+    }
+    },
+    {
+    nome: "Whiskers",
+    tipo: "Cat",
+    raca: "Siamese",
+    genero: "Female",
+    dono: {
+        nome: "Cliente 4",
+        nomeSocial: "C4",
+        email: "cliente4@email.com",
+        cpf: {
+            numero: "456.789.012-34",
+            dataEmissao: "04/04/2003",
+        },
+        rg: [{
+            numero: "4567890",
+            dataEmissao: "04/04/2003"}, 
+            {
+            numero: "5678901",
+            dataEmissao: "10/05/2002", 
+        }],
+        telefone: "(44) 44444-4444",
+        pets: [{
+            nome: "Pet 4",
+            tipo: "Cachorro",
+            raca: "Poodle",
+            genero: "Fêmea",
+        }],
+        produtos: [{
+            nome: 'Produto 1',
+            preco: 30,
+        }],
+        servicos: [{
+            nome: 'Serviço 1',
+            preco: 50,
+        }],
+        id: 4
+    }
+    }
+]
+
 export default class Roteador extends Component<{}, state>{
     constructor(props: {} | Readonly<{}>) {
         super(props)
@@ -191,16 +267,16 @@ export default class Roteador extends Component<{}, state>{
                 tela = <ListaCliente clientes={clientes} tema="#e3a8f7" />;
                 break;
             case 'Listar Pets':
-                tela = <ListaPets tema="#e3a8f7" />;
+                tela = <ListaPets pets={pets} tema="#e3a8f7" />;
                 break;
             case 'Listar Serviços':
                 tela = <ListaServicos tema="#e3a8f7" />;
                 break;
             case 'Listar Produtos':
-                tela = <ListaPets tema="#e3a8f7" />;
+                tela = <ListaServicos tema="#e3a8f7" />;
                 break;
             default:
-                tela = <ListaPets tema="#e3a8f7" />;
+                tela = <ListaServicos tema="#e3a8f7" />;
                 break;
         }
 
