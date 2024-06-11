@@ -33,7 +33,7 @@ export default class ListagemClientesValorProdutos extends Listagem{
         })
         
         listaClientes.forEach((cliente, index) => {
-            if (index < 10) {
+            if (index < 5) {
                 console.log(` ${index + 1}º - ${cliente.nomeCliente} - Valor consumido: R$${cliente.consumoCliente}`)
             }
         })
