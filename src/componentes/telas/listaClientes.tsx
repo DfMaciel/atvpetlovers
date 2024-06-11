@@ -18,7 +18,7 @@ export default class ListaCliente extends Component<props>{
                 <div className="container-fluid">
                     <h3 style={{textAlign: "center"}}> Lista de Clientes </h3>
                     {this.props.clientes.map((cliente, idx) => (
-                        <CardClientes key={idx} cliente={cliente}/>
+                        <CardClientes consumo='' key={idx} cliente={cliente}/>
                     ))}
                 </div>
         </>

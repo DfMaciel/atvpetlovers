@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Component } from "react";
-import CardServicos from "../cards/cardServico";
-import { ViewServico } from "../interface/iServico";
+import CardProdutos from "../cards/cardProduto";
+import { ViewProduto } from "../interface/iProduto";
 import { Modal } from "react-bootstrap";
 
 type props = {
     tema: string;
-    servicos: ViewServico[];
+    produtos: ViewProduto[];
     verCliente: boolean;
 }
 
@@ -16,7 +16,7 @@ type state = {
     verCliente: boolean;
 }
 
-export default class ListaServicos extends Component<props, state>{
+export default class ListaProdutos extends Component<props, state>{
     constructor(props: props) {
         super(props)
         this.state = {
@@ -47,8 +47,8 @@ export default class ListaServicos extends Component<props, state>{
                             </Modal.Body>
                         </Modal>
                     : <div className="container-fluid">
-                        {this.props.servicos.map((servico, idx) => (
-                            <CardServicos key={idx} servico={servico} handleConteudoModal={this.handleConteudoModal} consumo=''/>
+                        {this.props.produtos.map((produto, idx) => (
+                            <CardProdutos key={idx} produto={produto} handleConteudoModal={this.handleConteudoModal} consumo='sim'/>
                         ))}
                       </div>
                     )
@@ -57,9 +57,9 @@ export default class ListaServicos extends Component<props, state>{
                 conteudo = (
                     <>
                         <div className="container-fluid">
-                            <h3 style={{textAlign: "center"}}> Lista de Serviços </h3>
-                            {this.props.servicos.map((servico, idx) => (
-                                <CardServicos key={idx} servico={servico} handleConteudoModal={this.handleConteudoModal} consumo='' />
+                            <h3 style={{textAlign: "center"}}> Lista de Produtos </h3>
+                            {this.props.produtos.map((produto, idx) => (
+                                <CardProdutos key={idx} produto={produto} handleConteudoModal={this.handleConteudoModal} consumo='sim'/>
                             ))}
                         </div>
                         {this.state.conteudoModal !== null && (

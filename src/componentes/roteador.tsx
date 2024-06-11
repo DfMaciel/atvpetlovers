@@ -8,6 +8,12 @@ import Modal from 'react-bootstrap/Modal';
 import FormularioCadastroPet from "./modais/formulariosCadastro/formularioCadastroPet";
 import FormularioCadastroServico from "./modais/formulariosCadastro/formularioCadastroServico";
 import FormularioCadastroProduto from "./modais/formulariosCadastro/formularioCadastroProduto";
+import ListaProdutos from "./telas/listaProdutos";
+import ListaClienteConsumoQuantidade from "./telas/listaClientesConsumoQuantidade";
+import ListaClienteConsumoValor from "./telas/listaClientesConsumoValor";
+import ListaProdutosMaisConsumidos from "./telas/listaProdutosMaisConsumidos";
+import ListaServicosMaisConsumidos from "./telas/listaServicosMaisConsumidos";
+import ListaConsumoPets from "./telas/consumoPet";
 
 type state = {
     tela: string
@@ -97,10 +103,18 @@ const clientes = [
         produtos: [{
             nome: 'Produto 1',
             preco: 30,
+        },
+        {
+            nome: 'Produto 2',
+            preco: 50,
         }],
         servicos: [{
             nome: 'Serviço 1',
             preco: 50,
+        },
+        {
+            nome: 'Serviço 2',
+            preco: 60,
         }],
         id: 4
     },
@@ -126,10 +140,18 @@ const clientes = [
         produtos: [{
             nome: "Produto 5",
             preco: 60,
+        },
+        {
+            nome: "Produto 6",
+            preco: 80,
         }],
         servicos: [{
             nome: "Serviço 5",
             preco: 110,
+        },
+        {
+            nome: "Serviço 6",
+            preco: 130,
         }],
         id: 5
     },
@@ -163,10 +185,18 @@ const pets = [
         produtos: [{
             nome: "Produto 5",
             preco: 60,
+        },
+        {
+            nome: "Produto 6",
+            preco: 80,
         }],
         servicos: [{
             nome: "Serviço 5",
             preco: 110,
+        },
+        {
+            nome: "Serviço 6",
+            preco: 130,
         }],
         id: 5
     }
@@ -208,6 +238,40 @@ const pets = [
         }],
         id: 4
     }
+    }
+]
+
+const servicos = [
+    {
+        nome: 'Serviço 1',
+        preco: 50,
+    },
+    {
+        nome: 'Serviço 2',
+        preco: 60,
+    },
+    {
+        nome: 'Serviço 3',
+        preco: 70,
+    },
+    {
+        nome: 'Serviço 4',
+        preco: 80,
+    },
+    {
+        nome: 'Serviço 5',
+        preco: 90,
+    }
+]
+
+const produtos = [
+    {
+        nome: 'Produto 1',
+        preco: 30,
+    },
+    {
+        nome: 'Produto 2',
+        preco: 50,
     }
 ]
 
@@ -254,10 +318,10 @@ export default class Roteador extends Component<{}, state>{
 
     render() {
         let barraNavegacao = <BarraNavegacao selecionarView={this.selecionarView} tema="#B80BF3" botoes={[
-            {nome: 'Cliente', dropdownItems: ['Listar Clientes', 'Cadastrar Cliente'].map(item => ({nome: item}))},
-            {nome: 'Pet', dropdownItems: ['Listar Pets', 'Cadastrar Pet'].map(item => ({nome: item}))},
-            {nome: 'Serviço', dropdownItems: ['Listar Serviços', 'Cadastrar Serviço'].map(item => ({nome: item}))},
-            {nome: 'Produtos', dropdownItems: ['Listar Produtos', 'Cadastrar Produto'].map(item => ({nome: item}))} 
+            {nome: 'Cliente', dropdownItems: ['Listar Clientes', 'Cadastrar Cliente','Mais Consumiram (Quantidade)', 'Mais Consumiram (Valor)'].map(item => ({nome: item}))},
+            {nome: 'Pet', dropdownItems: ['Listar Pets', 'Cadastrar Pet','Consumo por categoria de pet'].map(item => ({nome: item}))},
+            {nome: 'Serviço', dropdownItems: ['Listar Serviços', 'Cadastrar Serviço', 'Mais Consumidos'].map(item => ({nome: item}))},
+            {nome: 'Produtos', dropdownItems: ['Listar Produtos', 'Cadastrar Produto', 'Mais Vendidos'].map(item => ({nome: item}))} 
         ]}/>
         
         let tela;
@@ -270,14 +334,25 @@ export default class Roteador extends Component<{}, state>{
                 tela = <ListaPets pets={pets} tema="#e3a8f7" />;
                 break;
             case 'Listar Serviços':
-                tela = <ListaServicos tema="#e3a8f7" />;
+                tela = <ListaServicos verCliente={false} servicos={servicos} tema="#e3a8f7" />;
                 break;
             case 'Listar Produtos':
-                tela = <ListaServicos tema="#e3a8f7" />;
+                tela = <ListaProdutos verCliente={false} produtos={produtos} tema="#e3a8f7" />;
                 break;
-            default:
-                tela = <ListaServicos tema="#e3a8f7" />;
+            case 'Mais Consumiram (Quantidade)':
+                tela = <ListaClienteConsumoQuantidade clientes={clientes} tema="#e3a8f7" />;
                 break;
+            case 'Mais Consumiram (Valor)':
+                tela = <ListaClienteConsumoValor clientes={clientes} tema="#e3a8f7" />;
+                break;
+            case 'Mais Vendidos':
+                tela = <ListaProdutosMaisConsumidos produtos={produtos} tema="#e3a8f7" />;
+                break
+            case 'Mais Consumidos':
+                tela = <ListaServicosMaisConsumidos servicos={servicos} tema="#e3a8f7" />;
+                break;
+            case 'Consumo por categoria de pet':
+                tela = <ListaConsumoPets tema="#e3a8f7" produtos={produtos} servicos={servicos} />;
         }
 
         return (

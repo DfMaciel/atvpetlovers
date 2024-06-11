@@ -12,6 +12,11 @@ code {
     monospace;
 }
 
+.dropdownCustomizado .btn-primary {
+  background-color: #BA68C8 !important;
+  border-color: #BA68C8 !important;
+}
+
 main {
   background-color: #e3a8f7;
 }

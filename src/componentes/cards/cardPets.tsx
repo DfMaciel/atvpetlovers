@@ -44,6 +44,7 @@ export default class CardPets extends Component<props, state> {
                         <Button variant="primary"  style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => this.handleModal(true, this.state.pet.nome)}>Ver Detalhes</Button>
                     </Card.Body>
                 </Card>
+                <br/>
                 
                 <Modal centered size="lg" show={this.state.modalPet} onHide={() => this.handleModal(false, '')}>
                 <Modal.Header closeButton>

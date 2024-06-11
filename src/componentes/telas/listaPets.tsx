@@ -1,7 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Component } from "react";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import { ViewPet } from "../interface/iPet";
 import CardPets from "../cards/cardPets";
 
