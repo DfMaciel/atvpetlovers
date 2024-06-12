@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -19,112 +19,95 @@ type props = {
     consumo: string
 }
 
-type state = {
-    modalCliente: boolean,
-    tituloModal: string,
-    cliente: ViewCliente,
-    tipoModal: string
-}
-
-export default class CardClientes extends Component<props, state> {
-    constructor(props: props) {
-        super(props)
-        this.state = {
-            modalCliente: false,
-            tituloModal: '',
-            cliente: this.props.cliente,
-            tipoModal: '',
+export default function CardClientes (props: props) {
+    const [modalCliente, setModalCliente] = useState(false)
+    const [tituloModal, setTituloModal] = useState('')
+    const [cliente, setCliente] = useState(props.cliente)
+    const [tipoModal, setTipoModal] = useState('')
+    
+    const handleModal = (exibir: boolean, titulo: string, tipoModal: string) => {
+            setModalCliente(exibir)
+            setTituloModal(titulo)
+            setTipoModal(tipoModal)
         }
-    }
 
-    handleModal = (exibir: boolean, titulo: string, tipoModal: string) => {
-        this.setState({
-            modalCliente: exibir,
-            tituloModal: titulo,
-            tipoModal: tipoModal
-        })
-    }
-
-    escolherModal = (tipoModal: string) => {
+    const escolherModal = (tipoModal: string) => {
         switch(tipoModal) {
             case 'verdados':
-                return <VisualizarCliente tema="#e3a8f7" cliente={this.state.cliente}/>
+                return <VisualizarCliente tema="#e3a8f7" cliente={cliente}/>
             case 'pets':
-                return <ListaPets tema="#e3a8f7" pets={this.state.cliente.pets}/>
+                return <ListaPets tema="#e3a8f7" pets={cliente.pets}/>
             case 'produtos':
-                return <ListaProdutos verCliente={true} tema="#e3a8f7" produtos={this.state.cliente.produtos}/>
+                return <ListaProdutos verCliente={true} tema="#e3a8f7" produtos={cliente.produtos}/>
             case 'servicos':
-                return <ListaServicos verCliente={true} tema="#e3a8f7" servicos={this.state.cliente.servicos}/>
+                return <ListaServicos verCliente={true} tema="#e3a8f7" servicos={cliente.servicos}/>
             case 'adicionarPet':
-                return <FormularioAdicaoPet tema="#e3a8f7" cliente={this.state.cliente}/>
+                return <FormularioAdicaoPet tema="#e3a8f7" cliente={cliente}/>
             case 'adicionarProduto':
                 return <FormularioAdicaoProduto tema="#e3a8f7"/>
             case 'adicionarServico':
                 return <FormularioAdicaoProduto tema="#e3a8f7"/>
         }
     }
-
-    render() {
-        return (
-            <>
-                <Card>
-                    <Card.Header as="h5">Dados do cliente</Card.Header>
-                    <Card.Body>
-                    {this.props.consumo === '' ? (
+    return (
+        <>
+            <Card>
+                <Card.Header as="h5">Dados do cliente</Card.Header>
+                <Card.Body>
+                {props.consumo === '' ? (
+                    <Card.Text>
+                        <a> {cliente.nome}</a>
+                    </Card.Text>
+                ):  <Card.Text>
+                        <strong>Nome: </strong> <a>{cliente.nome}</a>
+                    </Card.Text>
+                }
+                {props.consumo === '' ? (
+                    <ButtonGroup>
+                        <Button variant="primary"  style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => handleModal(true, cliente.nome, 'verdados')}>Ver Detalhes</Button>
+                        <DropdownButton variant="primary" menuVariant="dark" className="dropdownCustomizado" as={ButtonGroup} title="Pets" id="bg-nested-dropdown">
+                                <Dropdown.Item onClick={() => handleModal(true, 'Lista de Pets', 'pets')}>Lista de Pets</Dropdown.Item>
+                                <Dropdown.Item onClick={() => handleModal(true, 'Adicionar Pet', 'adicionarPet')}>Adicionar Pet</Dropdown.Item>
+                        </DropdownButton>
+                        <DropdownButton variant="primary" menuVariant="dark" className="dropdownCustomizado" as={ButtonGroup} title="Produtos" id="bg-nested-dropdown">
+                            <Dropdown.Item onClick={() => handleModal(true, 'Produtos consumidos', 'produtos')}>Produtos Consumidos</Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleModal(true,'Adicionar Produto', 'adicionarProduto')}>Adicionar Produto</Dropdown.Item>
+                        </DropdownButton>
+                        <DropdownButton variant="primary" menuVariant="dark" className="dropdownCustomizado" as={ButtonGroup} title="Serviços" id="bg-nested-dropdown">
+                            <Dropdown.Item onClick={() => handleModal(true, 'Serviços consumidos', 'servicos')}>Serviços Consumidos</Dropdown.Item>
+                            <Dropdown.Item onClick={() => handleModal(true, 'Adicionar Serviço', 'adicionarServico')}>Adicionar Serviço</Dropdown.Item>
+                        </DropdownButton>
+                    </ButtonGroup>
+                ): 
+                (
+                    <>
                         <Card.Text>
-                            <a> {this.state.cliente.nome}</a>
+                            <strong>Email: </strong><a>{cliente.email}</a>
                         </Card.Text>
-                    ):  <Card.Text>
-                            <strong>Nome: </strong> <a>{this.state.cliente.nome}</a>
+                        <Card.Text>
+                            <strong>Telefone: </strong><a>{cliente.telefone}</a>
                         </Card.Text>
-                    }
-                    {this.props.consumo === '' ? (
-                        <ButtonGroup>
-                            <Button variant="primary"  style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => this.handleModal(true, this.state.cliente.nome, 'verdados')}>Ver Detalhes</Button>
-                            <DropdownButton variant="primary" menuVariant="dark" className="dropdownCustomizado" as={ButtonGroup} title="Pets" id="bg-nested-dropdown">
-                                    <Dropdown.Item onClick={() => this.handleModal(true, 'Lista de Pets', 'pets')}>Lista de Pets</Dropdown.Item>
-                                    <Dropdown.Item onClick={() => this.handleModal(true, 'Adicionar Pet', 'adicionarPet')}>Adicionar Pet</Dropdown.Item>
-                            </DropdownButton>
-                            <DropdownButton variant="primary" menuVariant="dark" className="dropdownCustomizado" as={ButtonGroup} title="Produtos" id="bg-nested-dropdown">
-                                <Dropdown.Item onClick={() => this.handleModal(true, 'Produtos consumidos', 'produtos')}>Produtos Consumidos</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.handleModal(true,'Adicionar Produto', 'adicionarProduto')}>Adicionar Produto</Dropdown.Item>
-                            </DropdownButton>
-                            <DropdownButton variant="primary" menuVariant="dark" className="dropdownCustomizado" as={ButtonGroup} title="Serviços" id="bg-nested-dropdown">
-                                <Dropdown.Item onClick={() => this.handleModal(true, 'Serviços consumidos', 'servicos')}>Serviços Consumidos</Dropdown.Item>
-                                <Dropdown.Item onClick={() => this.handleModal(true, 'Adicionar Serviço', 'adicionarServico')}>Adicionar Serviço</Dropdown.Item>
-                            </DropdownButton>
-                        </ButtonGroup>
-                    ): 
-                    (
-                        <>
-                            <Card.Text>
-                                <strong>Email: </strong><a>{this.state.cliente.email}</a>
-                            </Card.Text>
-                            <Card.Text>
-                                <strong>Telefone: </strong><a>{this.state.cliente.telefone}</a>
-                            </Card.Text>
-                            <Card.Text>
-                                <strong>Consumo total: </strong><a>R$ 50</a>
-                            </Card.Text>
-                            <Card.Text>
-                                <strong>Quantidade total: </strong><a>10 itens</a>
-                            </Card.Text>
-                        </>
-                    )
-                    }
-                    </Card.Body>
-                </Card>
-                <br/>
-                
-                <Modal centered size="lg" show={this.state.modalCliente} onHide={() => this.handleModal(false, '', '')}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{this.state.tituloModal}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {this.escolherModal(this.state.tipoModal)}
-                </Modal.Body>
-            </Modal>
-         </>
-        )
-    }
+                        <Card.Text>
+                            <strong>Consumo total: </strong><a>R$ 50</a>
+                        </Card.Text>
+                        <Card.Text>
+                            <strong>Quantidade total: </strong><a>10 itens</a>
+                        </Card.Text>
+                    </>
+                )
+                }
+                </Card.Body>
+            </Card>
+            <br/>
+            
+            <Modal centered size="lg" show={modalCliente} onHide={() => handleModal(false, '', '')}>
+            <Modal.Header closeButton>
+                <Modal.Title>{tituloModal}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {escolherModal(tipoModal)}
+            </Modal.Body>
+        </Modal>
+        </>
+    )
 }

@@ -1,65 +1,50 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { ViewProduto } from '../interface/iProduto';
 import VisualizarServicos from '../modais/visualizarDados/visualizarServico';
 import { CardText } from 'react-bootstrap';
 
-type props = {
+interface props {
     produto: ViewProduto
     handleConteudoModal?: (conteudo: JSX.Element | null, titulo: string) => void,
     consumo: string
 }
 
-type state = {
-    modalProduto: boolean,
-    tituloModal: string,
-    produto: ViewProduto,
-}
+export default function CardProdutos (props: props) {
+    const [tituloModal, setTituloModal] = useState(props.produto.nome)
+    const [produto, setProduto] =useState(props.produto)
 
-export default class CardProdutos extends Component<props, state> {
-    constructor(props: props) {
-        super(props)
-        this.state = {
-            modalProduto: false,
-            tituloModal: this.props.produto.nome,
-            produto: this.props.produto,
+    const handleButtonClick = () => {
+        if (props.handleConteudoModal !== undefined) {
+            props.handleConteudoModal (<VisualizarServicos tema="#e3a8f7" servico={props.produto} />, tituloModal);
         }
     }
-    
-    handleButtonClick = () => {
-        if (this.props.handleConteudoModal !== undefined) {
-            this.props.handleConteudoModal (<VisualizarServicos tema="#e3a8f7" servico={this.props.produto} />, this.state.tituloModal);
-        }
-    }
-
-    render() {
-        return (
-            <>
-                <Card>
-                    <Card.Header as="h5">Dados do Produto</Card.Header>
-                    <Card.Body>
-                    {this.props.consumo === 'sim' ? (
-                        <>
-                            <CardText>
-                                <strong>Nome: </strong><a>{this.props.produto.nome}</a>
-                            </CardText>
-                            <CardText>
-                                <strong>Preço: </strong><a> R$ {this.props.produto.preco}</a>
-                            </CardText>
-                        </>
-                    ):
+    return (
+        <>
+            <Card>
+                <Card.Header as="h5">Dados do Produto</Card.Header>
+                <Card.Body>
+                {props.consumo === 'sim' ? (
                     <>
-                        <Card.Text>
-                            <a> {this.state.produto.nome}</a>
-                        </Card.Text>
-                        <Button variant="primary" style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => this.handleButtonClick()}>Ver Detalhes</Button>
+                        <CardText>
+                            <strong>Nome: </strong><a>{props.produto.nome}</a>
+                        </CardText>
+                        <CardText>
+                            <strong>Preço: </strong><a> R$ {props.produto.preco}</a>
+                        </CardText>
                     </>
-                    }
-                    </Card.Body>
-                </Card> 
-                <br/>
-            </>
-        )
-    }
+                ):
+                <>
+                    <Card.Text>
+                        <a> {produto.nome}</a>
+                    </Card.Text>
+                    <Button variant="primary" style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => handleButtonClick()}>Ver Detalhes</Button>
+                </>
+                }
+                </Card.Body>
+            </Card> 
+            <br/>
+        </>
+    )
 }

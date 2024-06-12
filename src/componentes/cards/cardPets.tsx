@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { ViewPet } from '../interface/iPet';
@@ -9,52 +9,38 @@ type props = {
     pet: ViewPet
 }
 
-type state = {
-    modalPet: boolean,
-    tituloModal: string,
-    pet: ViewPet,
-}
+export default function CardPets (props: props) {
+    const [modalPet, setModalPet] = useState(false)
+    const [tituloModal, setTituloModal] = useState(props.pet.nome)
+    const [pet, setPet] = useState(props.pet)
 
-export default class CardPets extends Component<props, state> {
-    constructor(props: props) {
-        super(props)
-        this.state = {
-            modalPet: false,
-            tituloModal: '',
-            pet: this.props.pet,
-        }
+
+    const handleModal = (exibir: boolean, titulo: string) => {
+        setModalPet(exibir)
+        setTituloModal(titulo)
     }
 
-    handleModal = (exibir: boolean, titulo: string) => {
-        this.setState({
-            modalPet: exibir,
-            tituloModal: titulo,
-        })
-    }
-
-    render() {
-        return (
-            <>
-                <Card>
-                    <Card.Header as="h5">Dados do pet</Card.Header>
-                    <Card.Body>
-                        <Card.Text>
-                            <a> {this.state.pet.nome}</a>
-                        </Card.Text>
-                        <Button variant="primary"  style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => this.handleModal(true, this.state.pet.nome)}>Ver Detalhes</Button>
-                    </Card.Body>
-                </Card>
-                <br/>
-                
-                <Modal centered size="lg" show={this.state.modalPet} onHide={() => this.handleModal(false, '')}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{this.state.tituloModal}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <VisualizarPets tema="#e3a8f7" pet={this.state.pet}/>
-                </Modal.Body>
-            </Modal>
-         </>
-        )
-    }
+    return (
+        <>
+            <Card>
+                <Card.Header as="h5">Dados do pet</Card.Header>
+                <Card.Body>
+                    <Card.Text>
+                        <a> {pet.nome}</a>
+                    </Card.Text>
+                    <Button variant="primary"  style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => handleModal(true, pet.nome)}>Ver Detalhes</Button>
+                </Card.Body>
+            </Card>
+            <br/>
+            
+            <Modal centered size="lg" show={modalPet} onHide={() => handleModal(false, '')}>
+            <Modal.Header closeButton>
+                <Modal.Title>{tituloModal}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <VisualizarPets tema="#e3a8f7" pet={pet}/>
+            </Modal.Body>
+        </Modal>
+        </>
+    )
 }

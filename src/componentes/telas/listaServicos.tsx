@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Component } from "react";
+import { useState} from "react";
 import CardServicos from "../cards/cardServico";
 import { ViewServico } from "../interface/iServico";
 import { Modal } from "react-bootstrap";
@@ -10,77 +10,63 @@ type props = {
     verCliente: boolean;
 }
 
-type state = {
-    conteudoModal: JSX.Element | null
-    tituloModal: string
-    verCliente: boolean;
-}
+export default function ListaServicos (props: props) {
+    const [conteudoModal, setConteudoModal] = useState<JSX.Element | null>(null);
+    const [tituloModal, setTituloModal] = useState<string>('');
+    const [verCliente, setVerCliente] = useState<boolean>(props.verCliente);
 
-export default class ListaServicos extends Component<props, state>{
-    constructor(props: props) {
-        super(props)
-        this.state = {
-            conteudoModal: null,
-            tituloModal: '',
-            verCliente: this.props.verCliente
-        }
+    const handleConteudoModal = (conteudo: JSX.Element | null, titulo: string) => {
+        setConteudoModal(conteudo);
+        setTituloModal(titulo);
     }
-
-    handleConteudoModal = (conteudo: JSX.Element | null, titulo: string) => {
-        this.setState({ conteudoModal: conteudo });
-        this.setState({ tituloModal: titulo });
-    }
-    
-    render() {
-        let tema = this.props.tema
-        let conteudo = null;
-        switch (this.state.verCliente) {
-            case true: 
-                conteudo = (
-                    (this.state.conteudoModal !== null) ?
-                        <Modal centered size="lg" show={this.state.conteudoModal !== null} onHide={() => this.handleConteudoModal(null, '')}>
+    let tema = props.tema
+    let conteudo = null;
+    switch (verCliente) {
+        case true: 
+            conteudo = (
+                (conteudoModal !== null) ?
+                    <Modal centered size="lg" show={conteudoModal !== null} onHide={() => handleConteudoModal(null, '')}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>{tituloModal}</Modal.Title>
+                            </Modal.Header>
+                        <Modal.Body>
+                            {conteudoModal}
+                        </Modal.Body>
+                    </Modal>
+                : <div className="container-fluid">
+                    {props.servicos.map((servico, idx) => (
+                        <CardServicos key={idx} servico={servico} handleConteudoModal={handleConteudoModal} consumo='sim'/>
+                    ))}
+                    </div>
+                )
+            break;
+        case false:
+            conteudo = (
+                <>
+                    <div className="container-fluid">
+                        <h3 style={{textAlign: "center"}}> Lista de Serviços </h3>
+                        {props.servicos.map((servico, idx) => (
+                            <CardServicos key={idx} servico={servico} handleConteudoModal={handleConteudoModal} consumo='' />
+                        ))}
+                    </div>
+                    {conteudoModal !== null && (
+                        <Modal centered size="lg" show={conteudoModal !== null} onHide={() => handleConteudoModal(null, '')}>
                             <Modal.Header closeButton>
-                                <Modal.Title>{this.state.tituloModal}</Modal.Title>
-                             </Modal.Header>
+                                <Modal.Title>{tituloModal}</Modal.Title>
+                            </Modal.Header>
                             <Modal.Body>
-                                {this.state.conteudoModal}
+                                {conteudoModal}
                             </Modal.Body>
                         </Modal>
-                    : <div className="container-fluid">
-                        {this.props.servicos.map((servico, idx) => (
-                            <CardServicos key={idx} servico={servico} handleConteudoModal={this.handleConteudoModal} consumo=''/>
-                        ))}
-                      </div>
-                    )
-                break;
-            case false:
-                conteudo = (
-                    <>
-                        <div className="container-fluid">
-                            <h3 style={{textAlign: "center"}}> Lista de Serviços </h3>
-                            {this.props.servicos.map((servico, idx) => (
-                                <CardServicos key={idx} servico={servico} handleConteudoModal={this.handleConteudoModal} consumo='' />
-                            ))}
-                        </div>
-                        {this.state.conteudoModal !== null && (
-                            <Modal centered size="lg" show={this.state.conteudoModal !== null} onHide={() => this.handleConteudoModal(null, '')}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>{this.state.tituloModal}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    {this.state.conteudoModal}
-                                </Modal.Body>
-                            </Modal>
-                            )
-                        }
-                    </>
-                )
-                break;
-            }
-        return ( 
-            <>
-                {conteudo}
-            </>
-        )
-    }
+                        )
+                    }
+                </>
+            )
+            break;
+        }
+    return ( 
+        <>
+            {conteudo}
+        </>
+    )
 }

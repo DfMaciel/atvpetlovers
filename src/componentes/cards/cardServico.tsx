@@ -1,9 +1,9 @@
-import { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { ViewServico } from '../interface/iServico';
 import VisualizarServicos from '../modais/visualizarDados/visualizarServico';
 import { CardText } from 'react-bootstrap';
+import { useState } from 'react';
 
 type props = {
     servico: ViewServico
@@ -11,55 +11,40 @@ type props = {
     consumo: string
 }
 
-type state = {
-    modalServico: boolean,
-    tituloModal: string,
-    servico: ViewServico,
-}
-
-export default class CardServicos extends Component<props, state> {
-    constructor(props: props) {
-        super(props)
-        this.state = {
-            modalServico: false,
-            tituloModal: this.props.servico.nome,
-            servico: this.props.servico,
-        }
-    }
+export default function CardServicos (props: props) {
+    const [tituloModal, setTituloModal] = useState(props.servico.nome)
+    const [servico, setServico] = useState(props.servico)
     
-    handleButtonClick = () => {
-        if (this.props.handleConteudoModal !== undefined) {
-        this.props.handleConteudoModal(<VisualizarServicos tema="#e3a8f7" servico={this.props.servico} />, this.state.tituloModal);
+    const handleButtonClick = () => {
+        if (props.handleConteudoModal !== undefined) {
+        props.handleConteudoModal(<VisualizarServicos tema="#e3a8f7" servico={props.servico} />, tituloModal);
         }
     }
-
-    render() {
-        return (
-            <>
-                <Card>
-                    <Card.Header as="h5">Dados do serviço</Card.Header>
-                    <Card.Body>
-                    {this.props.consumo === 'sim' ? (
-                        <>
-                            <CardText>
-                                <strong>Nome: </strong><a>{this.props.servico.nome}</a>
-                            </CardText>
-                            <CardText>
-                                <strong>Preço: </strong><a>R$ {this.props.servico.preco}</a>
-                            </CardText>
-                        </>
-                    ):
-                        <>
-                            <Card.Text>
-                                <a> {this.state.servico.nome}</a>
-                            </Card.Text>
-                            <Button variant="primary" style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => this.handleButtonClick()}>Ver Detalhes</Button>
-                        </>
-                    }
-                    </Card.Body>
-                </Card> 
-                <br/>
-            </>
-        )
-    }
+    return (
+        <>
+            <Card>
+                <Card.Header as="h5">Dados do serviço</Card.Header>
+                <Card.Body>
+                {props.consumo === 'sim' ? (
+                    <>
+                        <CardText>
+                            <strong>Nome: </strong><a>{props.servico.nome}</a>
+                        </CardText>
+                        <CardText>
+                            <strong>Preço: </strong><a>R$ {props.servico.preco}</a>
+                        </CardText>
+                    </>
+                ):
+                    <>
+                        <Card.Text>
+                            <a> {servico.nome}</a>
+                        </Card.Text>
+                        <Button variant="primary" style={{ backgroundColor: '#BA68C8', borderColor: '#BA68C8'}} onClick={() => handleButtonClick()}>Ver Detalhes</Button>
+                    </>
+                }
+                </Card.Body>
+            </Card> 
+            <br/>
+        </>
+    )
 }

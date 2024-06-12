@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Component } from "react";
+import { useState } from "react";
 import CardProdutos from "../cards/cardProduto";
 import { ViewProduto } from "../interface/iProduto";
 import { Modal } from "react-bootstrap";
@@ -10,77 +10,63 @@ type props = {
     verCliente: boolean;
 }
 
-type state = {
-    conteudoModal: JSX.Element | null
-    tituloModal: string
-    verCliente: boolean;
-}
+export default function ListaProdutos (props: props) {
+    const [conteudoModal, setConteudoModal] = useState<JSX.Element | null>(null);
+    const [tituloModal, setTituloModal] = useState<string>('');
+    const [verCliente, setVerCliente] = useState<boolean>(props.verCliente);
 
-export default class ListaProdutos extends Component<props, state>{
-    constructor(props: props) {
-        super(props)
-        this.state = {
-            conteudoModal: null,
-            tituloModal: '',
-            verCliente: this.props.verCliente
-        }
+    const handleConteudoModal = (conteudo: JSX.Element | null, titulo: string) => {
+        setConteudoModal(conteudo)
+        setTituloModal(titulo)
     }
-
-    handleConteudoModal = (conteudo: JSX.Element | null, titulo: string) => {
-        this.setState({ conteudoModal: conteudo });
-        this.setState({ tituloModal: titulo });
-    }
-    
-    render() {
-        let tema = this.props.tema
-        let conteudo = null;
-        switch (this.state.verCliente) {
-            case true: 
-                conteudo = (
-                    (this.state.conteudoModal !== null) ?
-                        <Modal centered size="lg" show={this.state.conteudoModal !== null} onHide={() => this.handleConteudoModal(null, '')}>
+    let tema = props.tema
+    let conteudo = null;
+    switch (verCliente) {
+        case true: 
+            conteudo = (
+                (conteudoModal !== null) ?
+                    <Modal centered size="lg" show={conteudoModal !== null} onHide={() => handleConteudoModal(null, '')}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>{tituloModal}</Modal.Title>
+                            </Modal.Header>
+                        <Modal.Body>
+                            {conteudoModal}
+                        </Modal.Body>
+                    </Modal>
+                : <div className="container-fluid">
+                    {props.produtos.map((produto, idx) => (
+                        <CardProdutos key={idx} produto={produto} handleConteudoModal={handleConteudoModal} consumo='sim'/>
+                    ))}
+                    </div>
+                )
+            break;
+        case false:
+            conteudo = (
+                <>
+                    <div className="container-fluid">
+                        <h3 style={{textAlign: "center"}}> Lista de Produtos </h3>
+                        {props.produtos.map((produto, idx) => (
+                            <CardProdutos key={idx} produto={produto} handleConteudoModal={handleConteudoModal} consumo=''/>
+                        ))}
+                    </div>
+                    {conteudoModal !== null && (
+                        <Modal centered size="lg" show={conteudoModal !== null} onHide={() => handleConteudoModal(null, '')}>
                             <Modal.Header closeButton>
-                                <Modal.Title>{this.state.tituloModal}</Modal.Title>
-                             </Modal.Header>
+                                <Modal.Title>{tituloModal}</Modal.Title>
+                            </Modal.Header>
                             <Modal.Body>
-                                {this.state.conteudoModal}
+                                {conteudoModal}
                             </Modal.Body>
                         </Modal>
-                    : <div className="container-fluid">
-                        {this.props.produtos.map((produto, idx) => (
-                            <CardProdutos key={idx} produto={produto} handleConteudoModal={this.handleConteudoModal} consumo='sim'/>
-                        ))}
-                      </div>
-                    )
-                break;
-            case false:
-                conteudo = (
-                    <>
-                        <div className="container-fluid">
-                            <h3 style={{textAlign: "center"}}> Lista de Produtos </h3>
-                            {this.props.produtos.map((produto, idx) => (
-                                <CardProdutos key={idx} produto={produto} handleConteudoModal={this.handleConteudoModal} consumo='sim'/>
-                            ))}
-                        </div>
-                        {this.state.conteudoModal !== null && (
-                            <Modal centered size="lg" show={this.state.conteudoModal !== null} onHide={() => this.handleConteudoModal(null, '')}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>{this.state.tituloModal}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    {this.state.conteudoModal}
-                                </Modal.Body>
-                            </Modal>
-                            )
-                        }
-                    </>
-                )
-                break;
-            }
-        return ( 
-            <>
-                {conteudo}
-            </>
-        )
-    }
+                        )
+                    }
+                </>
+            )
+            break;
+        }
+    return ( 
+        <>
+            {conteudo}
+        </>
+    )
 }
