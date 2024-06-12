@@ -59,7 +59,7 @@ export default class ListaProdutos extends Component<props, state>{
                         <div className="container-fluid">
                             <h3 style={{textAlign: "center"}}> Lista de Produtos </h3>
                             {this.props.produtos.map((produto, idx) => (
-                                <CardProdutos key={idx} produto={produto} handleConteudoModal={this.handleConteudoModal} consumo='sim'/>
+                                <CardProdutos key={idx} produto={produto} handleConteudoModal={this.handleConteudoModal} consumo=''/>
                             ))}
                         </div>
                         {this.state.conteudoModal !== null && (
