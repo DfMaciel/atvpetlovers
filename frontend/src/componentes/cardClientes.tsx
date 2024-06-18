@@ -4,11 +4,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useEffect, useState } from "react"
 import { viewCliente } from "../interface/iCliente"
 import { Card, Button, Modal } from "react-bootstrap"
+import VisualizarCliente from "./modal/verCliente";
 
 export default function CardClientes ({clienteEscolhido}: {clienteEscolhido: viewCliente}) {
     const [modalCliente, setModalCliente] = useState(false)
     const [tituloModal, setTituloModal] = useState('')
-    const [cliente, setCliente] = useState(clienteEscolhido)
+    const [cliente, setCliente] = useState<viewCliente>(clienteEscolhido)
     const [tipoModal, setTipoModal] = useState('')
     
     const handleModal = (exibir: boolean, titulo: string) => {
@@ -25,11 +26,8 @@ export default function CardClientes ({clienteEscolhido}: {clienteEscolhido: vie
                     <Card.Text>
                         <strong>Nome: </strong><a>{cliente.nome}</a>
                     </Card.Text>
-                    <Card.Text>
-                        <strong>Email: </strong><a>{cliente.email}</a>
-                    </Card.Text>
                 </Card.Body>
-                <Button variant="danger" onClick={() => handleModal(true, cliente.nome)}>Ver Detalhes</Button>
+                <Button variant="danger" className="mb-3" style={{width: '10%'}} onClick={() => handleModal(true, cliente.nome)}>Ver Detalhes</Button>
             </Card>
             <br/>
 
@@ -38,7 +36,7 @@ export default function CardClientes ({clienteEscolhido}: {clienteEscolhido: vie
                 <Modal.Title>{tituloModal}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* <VerCliente cliente={cliente}/> */}
+                <VisualizarCliente clienteEscolhido={cliente}/>
             </Modal.Body>
         </Modal>
         </>
