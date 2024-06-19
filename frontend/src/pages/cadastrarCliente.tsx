@@ -91,6 +91,14 @@ export default function CadastroCliente () {
             alert('Insira todos os dados corretamente')
             return
         }
+        const verificarEntradaTelefone = cliente.telefones.some(telefone =>
+            Object.values(telefone).some(value => typeof value === 'string' && value.trim() === '')
+        );
+    
+        if (verificarEntradaTelefone) {
+            alert('Insira todos os dados corretamente');
+            return;
+        }
         const resultado = await CadastrarCliente(cliente)
         if (resultado.success) {
             alert('Cadastro concluido')
