@@ -180,9 +180,6 @@ export default function CadastroCliente () {
                         <button className="btn btn-outline-secondary" type="button" onClick={addTelefone}>Adicionar Telefone</button>
                     </div>
                     <div className="input-group mb-3">
-                        <button className="btn btn-outline-secondary" type="button" onClick={addTelefone}>Remover Telefone</button>
-                    </div>
-                    <div className="input-group mb-3">
                         <button className="btn btn-outline-secondary" type="button" onClick={handleSubmit}>Cadastrar</button>
                     </div>
                 </Form>
