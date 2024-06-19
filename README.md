@@ -17,11 +17,11 @@ npx tsc
 3º - Acesse os arquivos compilados:
 
 ``` 
-cd /src/out/main/
+cd /src/out/app/
 ```
 
 4º - Execute a aplicação:
 
 ```
-node app.js
+node main.js
 ```
