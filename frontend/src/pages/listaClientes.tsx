@@ -20,6 +20,7 @@ const ListaClientes = () => {
         <>
             <Navbar/>
             <div className="container-fluid">
+                <br/>
                 <h3 style={{textAlign: "center"}}> Lista de Clientes </h3>
                 {clientes.map((cliente, idx) => (
                     <CardClientes key={idx} clienteEscolhido={cliente}/>

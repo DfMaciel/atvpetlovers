@@ -69,7 +69,28 @@ export default function CadastroCliente () {
         }));
     }
 
+    const removerTelefone = () => {
+        setCliente(prevState => ({
+            ...prevState,
+            telefones: [...prevState.telefones, { ddd: '', numero: '' }]
+        }));
+    }
+
     const handleSubmit = async () => {
+        const verificarEntrada = Object.values(cliente).some(value =>
+            typeof value === 'string' && (value.trim() === '' || value.trim().length === 0)
+        )
+        if (verificarEntrada) {
+            alert('Insira todos os dados corretamente')
+            return
+        }
+        const verificarEntradaEndereco = Object.values(cliente.endereco).some(value =>
+            typeof value === 'string' && (value.trim() === '' || value.trim().length === 0)
+        )
+        if (verificarEntradaEndereco) {
+            alert('Insira todos os dados corretamente')
+            return
+        }
         const resultado = await CadastrarCliente(cliente)
         if (resultado.success) {
             alert('Cadastro concluido')
