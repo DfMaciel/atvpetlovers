@@ -23,5 +23,5 @@ cd /src/out/main/
 4º - Execute a aplicação:
 
 ```
-node main.js
+node app.js
 ```
